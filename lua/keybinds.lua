@@ -34,22 +34,8 @@ set("n", "<C-p>", ":Telescope buffers<CR>", ns)  -- Mapeia 'Ctrl+p' para listar 
 set("n", "<Leader>cc", ":Commentary<CR>", ns)  -- Mapeia 'leader+cc' para comentar a linha atual no modo normal
 set("v", "<Leader>cc", ":Commentary<CR>", ns)  -- Mapeia 'leader+cc' para comentar a seleção no modo visual
 
-set("n", '<Leader>"', 'viw<ESC>a"<esc>bi"<esc>ela', ns)  -- Mapeia 'leader+"' para adicionar aspas duplas em torno da palavra sob o cursor no modo normal
-set("n", "<Leader>'", "viw<ESC>a'<esc>bi'<esc>ela", ns)  -- Mapeia 'leader+' para adicionar aspas simples em torno da palavra sob o cursor no modo normal
 set("n", "<Leader>(", "viw<ESC>a)<esc>bi(<esc>ela", ns)  -- Mapeia 'leader+(' para adicionar parênteses em torno da palavra sob o cursor no modo normal
 set("n", "<Leader>[", "viw<ESC>a]<esc>bi[<esc>ela", ns)  -- Mapeia 'leader+[' para adicionar colchetes em torno da palavra sob o cursor no modo normal
 set("n", "<Leader>{", "viw<ESC>a}<esc>bi{<esc>ela", ns)  -- Mapeia 'leader+{' para adicionar chaves em torno da palavra sob o cursor no modo normal
 set("n", "<Leader><", "viw<ESC>a><esc>bi<<esc>ela", ns)  -- Mapeia 'leader+<' para adicionar sinais de menor em torno da palavra sob o cursor no modo normal
-
--- Inicia uma sequência de comandos vim
--- No modo de inserção, se o menu pop-up estiver visível, confirma a seleção, caso contrário, insere uma nova linha
--- No modo de inserção, se o menu pop-up estiver visível, confirma a seleção com a função coc#_select_confirm(), caso contrário, insere uma nova linha
-cmd[[  
-  inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"  
-  inoremap <silent><expr><CR> pumvisible() ? coc#_select_confirm()
-    \: "\<C-g>u\<CR>\<C-r>=coc#on_enter()\<CR>"  
-]]  -- Fim da sequência de comandos vim
-
-set("n", "<Leader>o", ":NERDTreeToggle<CR>", ns)  -- Mapeia 'leader+o' para alternar a visibilidade do NERDTree no modo normal
-set("n", "<Leader>R", ":NERDTreeToggle<CR>R", ns)  -- Mapeia 'leader+R
 
