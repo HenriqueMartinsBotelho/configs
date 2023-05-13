@@ -1,0 +1,18 @@
+{
+  "catppuccin": { "branch": "main", "commit": "57b421ee5f7380f816791fa451e86f213b625ece" },
+  "dracula.nvim": { "branch": "main", "commit": "26d04c8ced02f02207e7aec1d5730c3a9ebadeeb" },
+  "gruvbox.nvim": { "branch": "main", "commit": "df149bccb19a02c5c2b9fa6ec0716f0c0487feb0" },
+  "kanagawa.nvim": { "branch": "master", "commit": "42c33239b0460cbbcdb67bc9c7f0c420a95208e6" },
+  "lazy.nvim": { "branch": "main", "commit": "ceb413678dfcf3d5455208959185e3db1f7892c7" },
+  "material.nvim": { "branch": "main", "commit": "0c725897bc3d22c45fbf25a602002ee02f06f619" },
+  "monokai.nvim": { "branch": "master", "commit": "b8bd44d5796503173627d7a1fc51f77ec3a08a63" },
+  "moonbow.nvim": { "branch": "master", "commit": "2564c8a8efc18eb65104c75b404972e4fabd1d25" },
+  "neovim": { "branch": "main", "commit": "2eace84d649d76d41dcd44a87a17f64c7c4a586d" },
+  "nightly.nvim": { "branch": "main", "commit": "fa98a3a56e4eb2428e9ca5a0e24c3ae2d7ecb0a4" },
+  "onedark.nvim": { "branch": "master", "commit": "f6e82074761473d30a722f5d90c60282de1ac41d" },
+  "onenord.nvim": { "branch": "main", "commit": "0445c5cdc908b90ea6a6a01a1ae2784affa6d548" },
+  "palenightfall.nvim": { "branch": "main", "commit": "f33b64d0099867deb4a7aa6024d4c55f628253f2" },
+  "tokyonight.nvim": { "branch": "main", "commit": "df13e3268a44f142999fa166572fe95a650a0b37" },
+  "vim-nightfly-colors": { "branch": "master", "commit": "5f12e607b6d3b1a5aebe129dc0b5f7d85dc33eb3" },
+  "vscode.nvim": { "branch": "main", "commit": "dc5f37603ada51db13bc4009cbee628c5857a274" }
+}
