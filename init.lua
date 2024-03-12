@@ -213,9 +213,9 @@ vim.keymap.set("n", "<leader>n", ":NvimTreeFindFile<CR>", { noremap = true, sile
 
 
 -- LSP configuration
-vim.diagnostic.config({
-  virtual_text = false -- Desabilita a exibição de mensagens de erro no texto
-})
+-- vim.diagnostic.config({
+--   virtual_text = false -- Desabilita a exibição de mensagens de erro no texto
+-- })
 
 
 vim.api.nvim_create_autocmd({ "CursorHold" }, {
