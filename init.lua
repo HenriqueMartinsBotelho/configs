@@ -31,32 +31,20 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
--- Plugin installation
+-- Plugins
+
+
 require("lazy").setup({
-  {
-    "neovim/nvim-lspconfig",
-    dependencies = {
-      { "williamboman/mason.nvim", config = true },
-      "williamboman/mason-lspconfig.nvim",
-      "jose-elias-alvarez/null-ls.nvim" -- Adicionando null-ls para autoformatação
-    }
-  },
-  {
-    "hrsh7th/nvim-cmp",
-    dependencies = {
-      "hrsh7th/cmp-nvim-lsp",
-      "hrsh7th/cmp-buffer",
-      "hrsh7th/cmp-path",
-      "hrsh7th/cmp-vsnip",
-      "hrsh7th/vim-vsnip"
-    }
-  },
+  -- Configuração para `vim-moonfly-colors`
   {
     "bluz71/vim-moonfly-colors",
     name = "moonfly",
     lazy = false,
     priority = 1000
   },
+
+  -- Configuração para nvim-tree
+
   {
     "kyazdani42/nvim-tree.lua",
     dependencies = "kyazdani42/nvim-web-devicons",
@@ -64,37 +52,119 @@ require("lazy").setup({
       require'nvim-tree'.setup {}
     end
   },
-  -- Adicionando typescript.nvim para melhor suporte ao TypeScript
+
+  -- Configuração para `mason.nvim`
   {
-    "jose-elias-alvarez/typescript.nvim",
+    "williamboman/mason.nvim",
     config = function()
-      require("typescript").setup({
-        disable_commands = false,
-        debug = false,
-        go_to_source_definition = {
-          fallback = true,
+      require("mason").setup({
+        ensure_installed = {
+          "stylua",
+          "selene",
+          "luacheck",
+          "shellcheck",
+          "shfmt",
+          "tailwindcss-language-server",
+          "typescript-language-server",
+          "css-lsp",
         },
       })
-    end
+    end,
   },
-  -- Plugin para autopairs, melhora a experiência de codificação em React/JSX
-  "windwp/nvim-autopairs",
-  -- Adicionando null-ls para autoformatação
+  -- Configuração para `nvim-lspconfig`
   {
-    "jose-elias-alvarez/null-ls.nvim",
-    dependencies = "nvim-lua/plenary.nvim",
+    "neovim/nvim-lspconfig",
     config = function()
-      require("null-ls").setup({
-        sources = {
-          require("null-ls").builtins.formatting.prettier.with({
-            filetypes = { "typescript", "typescriptreact" },
-          }),
-          require("null-ls").builtins.formatting.gofmt,
+      local lspconfig = require('lspconfig')
+      
+      -- Exemplo de configuração para `tsserver`
+      lspconfig.tsserver.setup({
+        root_dir = lspconfig.util.root_pattern(".git"),
+        single_file_support = false,
+        settings = {
+          typescript = {
+            inlayHints = {
+              includeInlayParameterNameHints = "literal",
+              includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+              includeInlayFunctionParameterTypeHints = true,
+              includeInlayVariableTypeHints = false,
+              includeInlayPropertyDeclarationTypeHints = true,
+              includeInlayFunctionLikeReturnTypeHints = true,
+              includeInlayEnumMemberValueHints = true,
+            },
+          },
+          javascript = {
+            inlayHints = {
+              includeInlayParameterNameHints = "all",
+              includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+              includeInlayFunctionParameterTypeHints = true,
+              includeInlayVariableTypeHints = true,
+              includeInlayPropertyDeclarationTypeHints = true,
+              includeInlayFunctionLikeReturnTypeHints = true,
+              includeInlayEnumMemberValueHints = true,
+            },
+          },
         },
       })
-    end
+
+      -- Adicione aqui a configuração para outros servidores LSP, conforme necessário
+    end,
   },
+  -- Configuração para `nvim-treesitter` e `nvim-treesitter/playground`
+  {
+    "nvim-treesitter/nvim-treesitter",
+    config = function()
+      require("nvim-treesitter.configs").setup({
+        ensure_installed = {
+          "cmake",
+          "cpp",
+          "css",
+          "gitignore",
+          "go",
+          "graphql",
+          "http",
+          "scss",
+          "sql",
+        },
+        query_linter = {
+          enable = true,
+          use_virtual_text = true,
+          lint_events = { "BufWrite", "CursorHold" },
+        },
+        playground = {
+          enable = true,
+          persist_queries = true, -- Whether the query persists across vim sessions
+          keybindings = {
+            toggle_query_editor = "o",
+            toggle_hl_groups = "i",
+            toggle_injected_languages = "t",
+            toggle_anonymous_nodes = "a",
+            toggle_language_display = "I",
+            focus_language = "f",
+            unfocus_language = "F",
+            update = "R",
+            goto_node = "<cr>",
+            show_help = "?",
+          },
+        },
+      })
+
+      -- MDX support
+      vim.filetype.add({
+        extension = {
+          mdx = "markdown",
+        },
+      })
+    end,
+  },
+  {
+    "nvim-treesitter/playground",
+    cmd = "TSPlaygroundToggle"
+  },
+  -- Adicione outras configurações de plugins conforme necessário
 })
+
+
 
 -- Set colorscheme
 vim.cmd.colorscheme("moonfly")
@@ -133,38 +203,38 @@ vim.keymap.set("n", "<leader>r", ":NvimTreeRefresh<CR>", { noremap = true, silen
 vim.keymap.set("n", "<leader>n", ":NvimTreeFindFile<CR>", { noremap = true, silent = true })
 
 -- Completion configuration
-local cmp = require("cmp")
+-- local cmp = require("cmp")
 
-cmp.setup({
-  snippet = {
-    expand = function(args)
-      vim.fn["vsnip#anonymous"](args.body)
-    end
-  },
-  mapping = cmp.mapping.preset.insert({
-    ["<C-b>"] = cmp.mapping.scroll_docs(-4),
-    ["<C-f>"] = cmp.mapping.scroll_docs(4),
-    ["<C-Space>"] = cmp.mapping.complete(),
-    ["<C-e>"] = cmp.mapping.abort(),
-    ["<CR>"] = cmp.mapping.confirm({ select = true })
-  }),
-  sources = cmp.config.sources(
-    {
-      { name = "nvim_lsp" },
-      { name = "vsnip" }
-    },
-    {
-      { name = "path" }
-    },
-    {
-      { name = "buffer" }
-    }
-  )
-})
+-- cmp.setup({
+--   snippet = {
+--     expand = function(args)
+--       vim.fn["vsnip#anonymous"](args.body)
+--     end
+--   },
+--   mapping = cmp.mapping.preset.insert({
+--     ["<C-b>"] = cmp.mapping.scroll_docs(-4),
+--     ["<C-f>"] = cmp.mapping.scroll_docs(4),
+--     ["<C-Space>"] = cmp.mapping.complete(),
+--     ["<C-e>"] = cmp.mapping.abort(),
+--     ["<CR>"] = cmp.mapping.confirm({ select = true })
+--   }),
+--   sources = cmp.config.sources(
+--     {
+--       { name = "nvim_lsp" },
+--       { name = "vsnip" }
+--     },
+--     {
+--       { name = "path" }
+--     },
+--     {
+--       { name = "buffer" }
+--     }
+--   )
+-- })
 
 -- LSP configuration
 vim.diagnostic.config({
-  virtual_text = false
+  virtual_text = false -- Desabilita a exibição de mensagens de erro no texto
 })
 
 vim.o.updatetime = 250
@@ -176,21 +246,19 @@ vim.api.nvim_create_autocmd({ "CursorHold" }, {
   end
 })
 
-local capabilities = require("cmp_nvim_lsp").default_capabilities()
+-- local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-require("mason").setup()
-require("mason-lspconfig").setup()
+-- require("mason").setup()
+-- require("mason-lspconfig").setup()
 
-require("mason-lspconfig").setup_handlers {
-  function(server_name)
-    require("lspconfig")[server_name].setup {
-      capabilities = capabilities
-    }
-  end
-}
+-- require("mason-lspconfig").setup_handlers {
+--   function(server_name)
+--     require("lspconfig")[server_name].setup {
+--       capabilities = capabilities
+--     }
+--   end
+-- }
 
--- Autopairs configuração
-require('nvim-autopairs').setup({})
 
 -- Adicionando autocomando para autoformatação ao salvar arquivos TypeScript e Go
 vim.api.nvim_create_autocmd("BufWritePre", {
