@@ -4,18 +4,20 @@
 -- fazer lista de atalhos
 
 local set = vim.opt
-set.autoindent = true
-set.clipboard = "unnamedplus"
-set.expandtab = true
-set.mouse = "a"
-set.number = true
-set.shiftwidth = 2
-set.softtabstop = 2
-set.tabstop = 2
+set.autoindent = true          -- Habilita indentação automática baseada na linha anterior
+set.clipboard = "unnamedplus"  -- Permite acesso ao clipboard do sistema
+set.expandtab = true           -- Converte tabs em espaços
+set.mouse = "a"                -- Habilita suporte ao mouse em todos os modos
+set.number = true              -- Exibe números das linhas
+set.shiftwidth = 2             -- Define a quantidade de espaços para o recuo
+set.softtabstop = 2            -- Define quantos espaços são considerados um 'tab'
+set.tabstop = 2                -- Define quantos espaços reais um caractere de tabulação ocupa
 
--- Leader key
-vim.g.mapleader = " "
-vim.g.maplocalleader = " "
+vim.o.updatetime = 250         -- Reduz o tempo de espera para trigger 'CursorHold' e 'CursorHoldI'
+
+-- Configurações da tecla líder
+vim.g.mapleader = " "          -- Define a tecla líder para espaço
+vim.g.maplocalleader = " "     -- Define a tecla líder local para espaço
 
 -- lazy.nvim installation
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -31,7 +33,11 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+
+
+
 -- Plugins
+
 
 
 require("lazy").setup({
@@ -77,7 +83,6 @@ require("lazy").setup({
     config = function()
       local lspconfig = require('lspconfig')
       
-      -- Exemplo de configuração para `tsserver`
       lspconfig.tsserver.setup({
         root_dir = lspconfig.util.root_pattern(".git"),
         single_file_support = false,
@@ -106,8 +111,6 @@ require("lazy").setup({
           },
         },
       })
-
-      -- Adicione aqui a configuração para outros servidores LSP, conforme necessário
     end,
   },
   -- Configuração para `nvim-treesitter` e `nvim-treesitter/playground`
@@ -161,7 +164,28 @@ require("lazy").setup({
     "nvim-treesitter/playground",
     cmd = "TSPlaygroundToggle"
   },
-  -- Adicione outras configurações de plugins conforme necessário
+  {
+    'VonHeikemen/lsp-zero.nvim',
+    branch = 'v1.x',
+    dependencies = {
+        -- LSP Support
+        {'neovim/nvim-lspconfig'},             -- Required
+        {'williamboman/mason.nvim'},           -- Optional
+        {'williamboman/mason-lspconfig.nvim'}, -- Optional
+
+        -- Autocompletion
+        {'hrsh7th/nvim-cmp'},         -- Required
+        {'hrsh7th/cmp-nvim-lsp'},     -- Required
+        {'hrsh7th/cmp-buffer'},       -- Optional
+        {'hrsh7th/cmp-path'},         -- Optional
+        {'saadparwaiz1/cmp_luasnip'}, -- Optional
+        {'hrsh7th/cmp-nvim-lua'},     -- Optional
+
+        -- Snippets
+        {'L3MON4D3/LuaSnip'},             -- Required
+        {'rafamadriz/friendly-snippets'}, -- Optional
+    }
+  },   
 })
 
 
@@ -181,63 +205,18 @@ vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, {})
 vim.keymap.set("n", "<leader>gr", vim.lsp.buf.references, {})
 vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, {})
 
-vim.keymap.set({ "i", "s" }, "<Tab>", function()
-  if vim.fn["vsnip#jumpable"](1) == 1 then
-    return "<Plug>(vsnip-jump-next)"
-  else
-    return "<Tab>"
-  end
-end, { expr = true, remap = true })
-
-vim.keymap.set({ "i", "s" }, "<S-Tab>", function()
-  if vim.fn["vsnip#jumpable"](-1) == 1 then
-    return "<Plug>(vsnip-jump-prev)"
-  else
-    return "<S-Tab>"
-  end
-end, { expr = true, remap = true })
 
 -- Keymaps nvim-tree
 vim.keymap.set("n", "<leader>e", ":NvimTreeToggle<CR>", { noremap = true, silent = true })
 vim.keymap.set("n", "<leader>r", ":NvimTreeRefresh<CR>", { noremap = true, silent = true })
 vim.keymap.set("n", "<leader>n", ":NvimTreeFindFile<CR>", { noremap = true, silent = true })
 
--- Completion configuration
--- local cmp = require("cmp")
-
--- cmp.setup({
---   snippet = {
---     expand = function(args)
---       vim.fn["vsnip#anonymous"](args.body)
---     end
---   },
---   mapping = cmp.mapping.preset.insert({
---     ["<C-b>"] = cmp.mapping.scroll_docs(-4),
---     ["<C-f>"] = cmp.mapping.scroll_docs(4),
---     ["<C-Space>"] = cmp.mapping.complete(),
---     ["<C-e>"] = cmp.mapping.abort(),
---     ["<CR>"] = cmp.mapping.confirm({ select = true })
---   }),
---   sources = cmp.config.sources(
---     {
---       { name = "nvim_lsp" },
---       { name = "vsnip" }
---     },
---     {
---       { name = "path" }
---     },
---     {
---       { name = "buffer" }
---     }
---   )
--- })
 
 -- LSP configuration
 vim.diagnostic.config({
   virtual_text = false -- Desabilita a exibição de mensagens de erro no texto
 })
 
-vim.o.updatetime = 250
 
 vim.api.nvim_create_autocmd({ "CursorHold" }, {
   group = vim.api.nvim_create_augroup("float_diagnostic", { clear = true }),
@@ -245,19 +224,6 @@ vim.api.nvim_create_autocmd({ "CursorHold" }, {
     vim.diagnostic.open_float(nil, { focus = false })
   end
 })
-
--- local capabilities = require("cmp_nvim_lsp").default_capabilities()
-
--- require("mason").setup()
--- require("mason-lspconfig").setup()
-
--- require("mason-lspconfig").setup_handlers {
---   function(server_name)
---     require("lspconfig")[server_name].setup {
---       capabilities = capabilities
---     }
---   end
--- }
 
 
 -- Adicionando autocomando para autoformatação ao salvar arquivos TypeScript e Go
