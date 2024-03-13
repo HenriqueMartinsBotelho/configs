@@ -1,7 +1,5 @@
 -- Todo: Adicionar comentários explicando o que cada configuração faz
 -- autocomplete js, ts, go
--- mostrar tipagem de variáveis ao passsar mouse
--- fazer lista de atalhos
 
 local set = vim.opt
 set.autoindent = true          -- Habilita indentação automática baseada na linha anterior
@@ -19,6 +17,7 @@ vim.o.updatetime = 250         -- Reduz o tempo de espera para trigger 'CursorHo
 vim.g.mapleader = " "          -- Define a tecla líder para espaço
 vim.g.maplocalleader = " "     -- Define a tecla líder local para espaço
 
+vim.keymap.set('n', 'K', vim.lsp.buf.hover, {buffer = 0}) -- Mostra as informacões (tooltip) da variável ao apertar shift + k 
 
 
 local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
