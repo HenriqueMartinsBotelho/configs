@@ -19,224 +19,272 @@ vim.o.updatetime = 250         -- Reduz o tempo de espera para trigger 'CursorHo
 vim.g.mapleader = " "          -- Define a tecla líder para espaço
 vim.g.maplocalleader = " "     -- Define a tecla líder local para espaço
 
--- lazy.nvim installation
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+
+
+local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
-  vim.fn.system({
-    "git",
-    "clone",
-    "--filter=blob:none",
-    "https://github.com/folke/lazy.nvim.git",
-    "--branch=stable",
-    lazypath,
-  })
+	vim.fn.system({
+		'git',
+		'clone',
+		'--filter=blob:none',
+		'https://github.com/folke/lazy.nvim.git',
+		'--branch=stable', -- latest stable release
+		lazypath,
+	})
 end
 vim.opt.rtp:prepend(lazypath)
 
-
-
-
--- Plugins
-
-
-
-require("lazy").setup({
-  -- Configuração para `vim-moonfly-colors`
-  {
-    "bluz71/vim-moonfly-colors",
-    name = "moonfly",
-    lazy = false,
-    priority = 1000
-  },
-
-  -- Configuração para nvim-tree
-
-  {
-    "kyazdani42/nvim-tree.lua",
-    dependencies = "kyazdani42/nvim-web-devicons",
-    config = function()
-      require'nvim-tree'.setup {}
-    end
-  },
-
-  -- Configuração para `mason.nvim`
-  {
-    "williamboman/mason.nvim",
-    config = function()
-      require("mason").setup({
-        ensure_installed = {
-          "stylua",
-          "selene",
-          "luacheck",
-          "shellcheck",
-          "shfmt",
-          "tailwindcss-language-server",
-          "typescript-language-server",
-          "css-lsp",
-        },
-      })
-    end,
-  },
-  -- Configuração para `nvim-lspconfig`
-  {
-    "neovim/nvim-lspconfig",
-    config = function()
-      local lspconfig = require('lspconfig')
-      
-      lspconfig.tsserver.setup({
-        root_dir = lspconfig.util.root_pattern(".git"),
-        single_file_support = false,
-        settings = {
-          typescript = {
-            inlayHints = {
-              includeInlayParameterNameHints = "literal",
-              includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-              includeInlayFunctionParameterTypeHints = true,
-              includeInlayVariableTypeHints = false,
-              includeInlayPropertyDeclarationTypeHints = true,
-              includeInlayFunctionLikeReturnTypeHints = true,
-              includeInlayEnumMemberValueHints = true,
-            },
-          },
-          javascript = {
-            inlayHints = {
-              includeInlayParameterNameHints = "all",
-              includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-              includeInlayFunctionParameterTypeHints = true,
-              includeInlayVariableTypeHints = true,
-              includeInlayPropertyDeclarationTypeHints = true,
-              includeInlayFunctionLikeReturnTypeHints = true,
-              includeInlayEnumMemberValueHints = true,
-            },
-          },
-        },
-      })
-    end,
-  },
-  -- Configuração para `nvim-treesitter` e `nvim-treesitter/playground`
-  {
-    "nvim-treesitter/nvim-treesitter",
-    config = function()
-      require("nvim-treesitter.configs").setup({
-        ensure_installed = {
-          "cmake",
-          "cpp",
-          "css",
-          "gitignore",
-          "go",
-          "graphql",
-          "http",
-          "scss",
-          "sql",
-        },
-        query_linter = {
-          enable = true,
-          use_virtual_text = true,
-          lint_events = { "BufWrite", "CursorHold" },
-        },
-        playground = {
-          enable = true,
-          persist_queries = true, -- Whether the query persists across vim sessions
-          keybindings = {
-            toggle_query_editor = "o",
-            toggle_hl_groups = "i",
-            toggle_injected_languages = "t",
-            toggle_anonymous_nodes = "a",
-            toggle_language_display = "I",
-            focus_language = "f",
-            unfocus_language = "F",
-            update = "R",
-            goto_node = "<cr>",
-            show_help = "?",
-          },
-        },
-      })
-
-      -- MDX support
-      vim.filetype.add({
-        extension = {
-          mdx = "markdown",
-        },
-      })
-    end,
-  },
-  {
-    "nvim-treesitter/playground",
-    cmd = "TSPlaygroundToggle"
-  },
-  {
-    'VonHeikemen/lsp-zero.nvim',
-    branch = 'v1.x',
-    dependencies = {
-        -- LSP Support
-        {'neovim/nvim-lspconfig'},             -- Required
-        {'williamboman/mason.nvim'},           -- Optional
-        {'williamboman/mason-lspconfig.nvim'}, -- Optional
-
-        -- Autocompletion
-        {'hrsh7th/nvim-cmp'},         -- Required
-        {'hrsh7th/cmp-nvim-lsp'},     -- Required
-        {'hrsh7th/cmp-buffer'},       -- Optional
-        {'hrsh7th/cmp-path'},         -- Optional
-        {'saadparwaiz1/cmp_luasnip'}, -- Optional
-        {'hrsh7th/cmp-nvim-lua'},     -- Optional
-
-        -- Snippets
-        {'L3MON4D3/LuaSnip'},             -- Required
-        {'rafamadriz/friendly-snippets'}, -- Optional
-    }
-  },   
+require('lazy').setup({
+	{
+		'VonHeikemen/lsp-zero.nvim',
+		branch = 'v2.x',
+		dependencies = {
+			-- LSP Support
+			'neovim/nvim-lspconfig',    -- Required
+			'williamboman/mason.nvim',  -- Optional
+			'williamboman/mason-lspconfig.nvim', -- Optional
+			-- Autocompletion
+			'hrsh7th/nvim-cmp',         -- Required
+			'hrsh7th/cmp-nvim-lsp',     -- Required
+			'L3MON4D3/LuaSnip',         -- Required
+		}
+	},
+	{
+		'j-hui/fidget.nvim',
+		tag = 'legacy',
+		event = 'LspAttach',
+		opts = {
+			text = {
+				spinner = 'dots',
+				done = '✓',
+			}
+		},
+	},
+	-- {
+	-- 	'ellisonleao/gruvbox.nvim',
+	-- 	lazy = false,
+	-- 	priority = 1000,
+	-- 	config = function()
+	-- 		vim.cmd('colorscheme gruvbox')
+	-- 	end
+	-- },
+	{
+		'folke/tokyonight.nvim',
+		lazy = false,
+		priority = 1000,
+		opts = {},
+		config = function()
+			vim.cmd('colorscheme tokyonight-night')
+			vim.cmd('hi MsgArea guibg=#15161e')
+		end
+	},
+	{
+		'folke/trouble.nvim',
+		dependencies = { 'nvim-tree/nvim-web-devicons' },
+		opts = {
+			use_diagnostic_signs = true,
+		},
+	},
+	{
+		'folke/todo-comments.nvim',
+		dependencies = { 'nvim-lua/plenary.nvim' },
+		opts = {
+			highlight = {
+				pattern = [[.*<(KEYWORDS)\s*(\(\@?\w*\))?\s*:?]],
+			},
+		},
+	},
+	{
+		'nvimdev/indentmini.nvim',
+		event = 'BufEnter',
+		config = function()
+			require('indentmini').setup({
+				--char = '',
+				--char = '┊',
+				char = '│',
+			})
+			vim.cmd.highlight('default link IndentLine Comment')
+		end,
+	},
+	{
+		'terrortylor/nvim-comment',
+		init = function()
+			require('nvim_comment').setup()
+		end,
+	},
+	'tpope/vim-fugitive',
+	'tpope/vim-rhubarb',
+	'lewis6991/gitsigns.nvim',
+	'nvim-lualine/lualine.nvim',
+	'nvim-treesitter/nvim-treesitter',
+	'mbbill/undotree',
+	'theprimeagen/harpoon',
+	{
+		'nvim-telescope/telescope.nvim',
+		tag = '0.1.2',
+		cmd = 'Telescope',
+		dependencies = { 'nvim-lua/plenary.nvim' },
+		init = function()
+			local builtin = require('telescope.builtin')
+			vim.keymap.set('n', '<C-p>', builtin.git_files, {})
+			vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
+			vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
+			vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
+			vim.keymap.set('n', '<leader>fd', builtin.lsp_document_symbols, {})
+			vim.keymap.set('n', '<leader>fw', builtin.lsp_workspace_symbols, {})
+			vim.keymap.set('n', '<leader>fe', builtin.diagnostics, {})
+		end,
+	},
+	{
+		'nvim-neo-tree/neo-tree.nvim',
+		branch = 'v3.x',
+		cmd = 'Telescope',
+		dependencies = {
+			'nvim-lua/plenary.nvim',
+			'nvim-tree/nvim-web-devicons',
+			'MunifTanjim/nui.nvim',
+		}
+	},
+	
 })
 
+local lsp = require('lsp-zero').preset('recommended')
 
+lsp.on_attach(function(client, bufnr)
+	lsp.default_keymaps({ buffer = bufnr })
+	lsp.async_autoformat(client, bufnr)
 
--- Set colorscheme
-vim.cmd.colorscheme("moonfly")
+	vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename)
+	vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action)
+end)
 
--- Keymaps
-vim.keymap.set("n", "<leader>n", ":bn<cr>", { silent = true })
-vim.keymap.set("n", "<leader>p", ":bp<cr>", { silent = true })
-vim.keymap.set("n", "<leader>d", ":bd<cr>", { silent = true })
-vim.keymap.set("n", "<leader>s", ":wa<cr>", { silent = true })
-vim.keymap.set("n", "<leader>e", ":E<cr>", { silent = true })
-
-vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
-vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, {})
-vim.keymap.set("n", "<leader>gr", vim.lsp.buf.references, {})
-vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, {})
-
-
--- Keymaps nvim-tree
-vim.keymap.set("n", "<leader>e", ":NvimTreeToggle<CR>", { noremap = true, silent = true })
-vim.keymap.set("n", "<leader>r", ":NvimTreeRefresh<CR>", { noremap = true, silent = true })
-vim.keymap.set("n", "<leader>n", ":NvimTreeFindFile<CR>", { noremap = true, silent = true })
-
-
--- LSP configuration
--- vim.diagnostic.config({
---   virtual_text = false -- Desabilita a exibição de mensagens de erro no texto
--- })
-
-
-vim.api.nvim_create_autocmd({ "CursorHold" }, {
-  group = vim.api.nvim_create_augroup("float_diagnostic", { clear = true }),
-  callback = function ()
-    vim.diagnostic.open_float(nil, { focus = false })
-  end
+lsp.set_sign_icons({
+	error = '✘',
+	warn = '',
+	hint = '⚑',
+	info = '»',
 })
 
+require('lspconfig').lua_ls.setup({})
 
--- Adicionando autocomando para autoformatação ao salvar arquivos TypeScript e Go
-vim.api.nvim_create_autocmd("BufWritePre", {
-    pattern = { "*.ts", "*.tsx", "*.go" },
-    callback = function()
-      -- Verifica a existência da função 'format', que é a forma atualizada.
-      if vim.lsp.buf.format then
-        vim.lsp.buf.format({ timeout_ms = 1000 })
-      elseif vim.lsp.buf.formatting_sync then
-        -- Fallback para versões mais antigas que ainda utilizam 'formatting_sync'
-        vim.lsp.buf.formatting_sync(nil, 1000)
-      end
-    end,
-  })
-  
+lsp.setup()
+
+local cmp = require('cmp')
+
+cmp.setup({
+	mapping = {
+		['<CR>'] = cmp.mapping.confirm({ select = false }),
+	}
+})
+
+vim.keymap.set('n', '<leader>gs', vim.cmd.Git)
+
+vim.keymap.set('n', '<leader>n', vim.cmd.Neotree)
+
+vim.keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle)
+
+require('nvim-treesitter.configs').setup {
+	ensure_installed = {
+		'javascript', 'typescript', 'css', 'html',
+		'c', 'cpp', 'python', 'lua', 'rust', 'go', 'haskell',
+		'dockerfile', 'json', 'yaml', 'toml', 'bash', 'fish',
+	},
+	auto_update = true,
+	incremental_selection = {
+		enable = true,
+		keymaps = {
+			init_selection = '<C-space>',
+			node_incremental = '<C-space>',
+			node_decremental = '<C-backspace>',
+		},
+	},
+}
+
+local mark = require('harpoon.mark')
+local ui = require('harpoon.ui')
+
+vim.keymap.set('n', '<leader>a', mark.add_file)
+vim.keymap.set('n', '<C-e>', ui.toggle_quick_menu)
+vim.keymap.set('n', '<C-h>', function() ui.nav_file(1) end)
+vim.keymap.set('n', '<C-t>', function() ui.nav_file(2) end)
+vim.keymap.set('n', '<C-n>', function() ui.nav_file(3) end)
+vim.keymap.set('n', '<C-s>', function() ui.nav_file(4) end)
+
+-- lualine setup
+require('lualine').setup {
+	options = {
+		theme = 'tokyonight',
+		component_separators = '',
+		section_separators = { left = '', right = '' },
+	},
+	sections = {
+		lualine_a = {
+			{ 'mode', separator = { left = '' }, right_padding = 2 },
+		},
+		lualine_b = { 'filename' },
+		lualine_c = {
+			{ 'branch', icon = '' },
+			{
+				'diff',
+				symbols = { added = ' ', modified = ' ', removed = ' ' },
+			},
+		},
+		lualine_x = {
+			{
+				'diagnostics',
+				symbols = {
+					error = '✘ ',
+					warn = ' ',
+					hint = '⚑ ',
+					info = '» ',
+				},
+			},
+			{
+				function()
+					local msg = ''
+					local buf_ft = vim.api.nvim_buf_get_option(0, 'filetype')
+					local clients = vim.lsp.get_active_clients()
+					if next(clients) == nil then
+						return msg
+					end
+					for _, client in ipairs(clients) do
+						local filetypes = client.config.filetypes
+						if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
+							return client.name
+						end
+					end
+					return msg
+				end,
+				icon = '',
+			},
+		},
+		lualine_y = { 'filetype' },
+		lualine_z = {
+			{ 'location', separator = { right = '' }, left_padding = 2 },
+		},
+	},
+	inactive_sections = {
+		lualine_a = { 'filename' },
+		lualine_b = {},
+		lualine_c = {},
+		lualine_x = {},
+		lualine_y = {},
+		lualine_z = { 'location' },
+	},
+	tabline = {},
+	extensions = {},
+}
+
+local git_char = '┃' --'│'
+require('gitsigns').setup {
+	signs = {
+		add = { text = git_char },
+		change = { text = git_char },
+		delete = { text = git_char },
+		topdelete = { text = git_char },
+		changedelete = { text = git_char },
+		untracked = { text = git_char },
+	},
+	signcolumn = true,
+	numhl = false,
+}
