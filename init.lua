@@ -1,5 +1,5 @@
 -- Todo: Adicionar comentários explicando o que cada configuração faz
--- autocomplete js, ts, go
+-- adicionar os plugins do devaslife
 
 local set = vim.opt
 set.autoindent = true          -- Habilita indentação automática baseada na linha anterior
@@ -81,8 +81,8 @@ require('lazy').setup({
 		'folke/trouble.nvim',
 		dependencies = { 'nvim-tree/nvim-web-devicons' },
 		opts = {
-			use_diagnostic_signs = true,
-		},
+			
+		}	
 	},
 	{
 		'folke/todo-comments.nvim',
@@ -137,7 +137,6 @@ require('lazy').setup({
 	{
 		'nvim-neo-tree/neo-tree.nvim',
 		branch = 'v3.x',
-		cmd = 'Telescope',
 		dependencies = {
 			'nvim-lua/plenary.nvim',
 			'nvim-tree/nvim-web-devicons',
@@ -155,6 +154,16 @@ lsp.on_attach(function(client, bufnr)
 
 	vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename)
 	vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action)
+
+ -- Habilita diagnósticos em linha
+    vim.diagnostic.config({
+        virtual_text = true,  -- Exibe texto virtual com os diagnósticos ao lado da linha
+        signs = true,         -- Mostra ícones nos números de linha para indicar diagnósticos
+        underline = true,     -- Sublinha o texto que tem diagnósticos
+        update_in_insert = false, -- Evita atualizações de diagnóstico enquanto estiver no modo de inserção
+        severity_sort = true, -- Ordena diagnósticos por severidade
+    })
+
 end)
 
 lsp.set_sign_icons({
@@ -178,7 +187,7 @@ cmp.setup({
 
 vim.keymap.set('n', '<leader>gs', vim.cmd.Git)
 
-vim.keymap.set('n', '<leader>n', vim.cmd.Neotree)
+
 
 vim.keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle)
 
@@ -208,6 +217,20 @@ vim.keymap.set('n', '<C-h>', function() ui.nav_file(1) end)
 vim.keymap.set('n', '<C-t>', function() ui.nav_file(2) end)
 vim.keymap.set('n', '<C-n>', function() ui.nav_file(3) end)
 vim.keymap.set('n', '<C-s>', function() ui.nav_file(4) end)
+
+
+
+vim.keymap.set('n', '<leader>n', ':Neotree reveal toggle<CR>', {noremap = true, silent = true})
+
+
+
+vim.keymap.set("n", "<leader>xx", function() require("trouble").toggle() end)
+vim.keymap.set("n", "<leader>xw", function() require("trouble").toggle("workspace_diagnostics") end)
+vim.keymap.set("n", "<leader>xd", function() require("trouble").toggle("document_diagnostics") end)
+vim.keymap.set("n", "<leader>xq", function() require("trouble").toggle("quickfix") end)
+vim.keymap.set("n", "<leader>xl", function() require("trouble").toggle("loclist") end)
+vim.keymap.set("n", "gR", function() require("trouble").toggle("lsp_references") end)
+
 
 -- lualine setup
 require('lualine').setup {
