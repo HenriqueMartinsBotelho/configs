@@ -1,6 +1,43 @@
-# My configs
+# Welcome to my Neovim configuration project! 👋
 
-1. Neovim
+In this project, I'll guide you through the process of setting up Neovim, a powerful and efficient text editor, in a single file init.lua. 🌟
+
+So, why should you consider configuring Neovim in a single file? 🤔
+
+Here are some advantages:
+
+1. **Easy to manage**: Having all your configuration in a single file makes it easier to keep track of your settings and customizations. No more searching through multiple files or worrying about overwriting your configurations.
+2. **Consistent configuration**: With a single file configuration, you can easily maintain consistent settings across different machines or environments. This is especially useful if you work on multiple projects or collaborate with others.
+3. **Improved performance**: By keeping your configuration in a single file, Neovim can load your settings more quickly and efficiently. This can help improve your overall editing experience, especially if you have a lot of plugins or customizations.
+4. **Easier backups**: With all your configuration in a single file, it's simpler to create backups and ensure that your settings are safe. No more worrying about losing your customizations due to a mistake or a corrupted configuration file.
+5. **Better collaboration**: When working on a team, it's often helpful to share configuration files. With a single file configuration, it's easier to share your settings with others and collaborate on projects.
+
+## Getting Started
+
+1. **Prerequisites**:
+    - Ensure you have [NeoVim](https://neovim.io/) installed on your system.
+
+2. **Installation**:
+    - Clone this repository to your NeoVim configuration directory:
+
+    ```bash
+    git clone https://github.com/HenriqueMartinsBotelho/configs.git ~/.config/nvim
+    ```
+
+3. **Configuration**:
+    - After cloning, open NeoVim and the `init.lua` file will automatically load your new configuration.
+    - You can start editing the `init.lua` file to customize your NeoVim setup. Comments in the file will guide you through the various sections and settings.
+
+
+## Contributing
+
+Contributions are welcome! If you'd like to improve the configuration or add new features, please feel free to fork the repository, make your changes, and submit a pull request.
+
+
+## NeoVim Shortcuts
+
+Command + Count + Motion
+
 
 **Insertion Mode**
 
@@ -17,10 +54,21 @@
 - `l`: Move cursor right
 - `j`: Move cursor down
 - `k`: Move cursor up
+- `I`: Go to the beginning of the line (in insertion mode)
+- `A`: Go to the end of the line (in insertion mode)
+
+- `t<something>` Jumps to before caractere <something>
+- `f<something>` Jumps to the caractere <something>
+- `, or ;`: repete the last command (forward and backward)
+
+
+- `y$`: Copy the entire line
+- `yf<something>`Copy from the corsor to the <something> caracthere.
 
 - `u`: Undo
 - `ctrl + r`: Redo
 
+- `d$`: Deletes from the cursor to the end
 - `dd`: Delete line
 - `d3j`: Delete 3 lines down
 - `d3k`: Delete 3 lines up
@@ -32,8 +80,10 @@
 - `11j`: Move cursor down 11 lines
 - `11k`: Move cursor up 11 lines
 
-- `0`: Move cursor to the beginning of the line
-- `$`: Move cursor to the end of the line
+- `0`: Move cursor to the beginning of the line (in normal mode)
+- `O`: Move the cursor to the line above
+- `o`: Move the cursor to the line bellow
+- `$`: Move cursor to the end of the line (in normal mode)
 - `gg`: Move cursor to the beginning of the file
 - `G`: Move cursor to the end of the file
 - `f`: Move cursor forward one character
@@ -63,6 +113,35 @@ Yanking and delete goes to the same buffer which means that if you delete a line
 - `Y`: Copy text and move cursor to the beginning of the next line
 - `p`: Paste text
 - `P`: Paste text and move cursor to the beginning of the next line
+
+---
+
+### Buffers
+- **What They Are:** Buffers represent open instances of files in memory. When you open a file in NeoVim, it's loaded into a buffer. Even if you're not actively viewing the file, as long as it's open, its buffer exists.
+- **Usage:** Buffers are useful for working with multiple files simultaneously without necessarily displaying all of them on the screen.
+- **Creation:** Open a file in NeoVim using `:e filename` or `:edit filename`, and it automatically creates a buffer for that file.
+- **Navigation:** Switch between buffers using commands like `:bnext` (or `:bn`) for the next buffer, `:bprevious` (or `:bp`) for the previous buffer, and `:buffer N` (where N is the buffer number) to jump directly to a specific buffer.
+
+### Windows
+- **What They Are:** Windows are viewports or splits within the NeoVim interface that display buffers. A single buffer can be displayed in multiple windows at the same time, and each window can show a different part of the buffer.
+- **Usage:** Windows are useful for visually comparing files side by side or for keeping an eye on one file while editing another.
+- **Creation:** Create new windows using commands like `:split` (or `:sp`) to split horizontally, and `:vsplit` (or `:vsp`) to split vertically.
+- **Navigation:** Move between windows using the `Ctrl+w` followed by a navigation key (h, j, k, l) which moves left, down, up, and right, respectively.
+
+### Tabs
+- **What They Are:** Tabs in NeoVim are collections of windows. Each tab can contain its own set of windows, allowing you to organize your workspace into logical groups.
+- **Usage:** Tabs are useful for organizing completely different projects or workspaces within the same NeoVim session.
+- **Creation:** Open a new tab with `:tabnew` or `:tabnew filename` to open a specific file in a new tab.
+- **Navigation:** Navigate between tabs using `:tabnext` (or `:tabn`) for the next tab, `:tabprevious` (or `:tabp`) for the previous tab, and `:tabfirst` and `:tablast` to jump to the first or last tab, respectively. You can also use `gt` to go to the next tab and `gT` to go to the previous tab.
+
+### Practical Tips
+- Understanding and effectively using these concepts allows you to manage complex editing tasks with ease.
+- Customize your key bindings to make window, buffer, and tab management more efficient.
+- Remember, the power of NeoVim lies in its flexibility; experimenting with different workflows can help you find what best suits your needs.
+
+Each of these concepts serves a different purpose and understanding how to leverage them can significantly boost your workflow in NeoVim.
+
+
 
 ## Dicas
 
@@ -109,7 +188,14 @@ vim.keymap.set("n", "<leader>xq", function() require("trouble").toggle("quickfix
 vim.keymap.set("n", "<leader>xl", function() require("trouble").toggle("loclist") end)
 vim.keymap.set("n", "gR", function() require("trouble").toggle("lsp_references") end)
 
-## Zellij
+
+---
+
+The following sections are only for zellij users.
+
+# Zellij Shortcuts
+
+
 
 zellij list-sessions
 
