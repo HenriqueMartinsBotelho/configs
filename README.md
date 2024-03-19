@@ -39,31 +39,28 @@ Contributions are welcome! If you'd like to improve the configuration or add new
 Command + Count + Motion
 
 
-**Insertion Mode**
-
-- `i`: Insert text at the cursor
-- `I`: Insert text at the beginning of the line
-- `O`: Insert text at the end of the line
-- `r`: Replace text at the cursor
-- `R`: Replace text at the beginning of the line
-- `S`: Replace text at the end of the line
-
 **Normal Mode**
 
+- `ciw`: "change inner word" it will delete the word and change to insertion mode
+- `i`: Insert text at the cursor
+- `I`: Insert text at the beginning of the line
+- `r`: Replace text at the cursor
+- `S`: Replace the entire line
 - `h`: Move cursor left
 - `l`: Move cursor right
 - `j`: Move cursor down
 - `k`: Move cursor up
 - `I`: Go to the beginning of the line (in insertion mode)
 - `A`: Go to the end of the line (in insertion mode)
+- `dw`: Delete a word from the cursor forward 
+- `diw`: Delete inner word in do not include space after the word
 
 - `t<something>` Jumps to before caractere <something>
 - `f<something>` Jumps to the caractere <something>
 - `, or ;`: repete the last command (forward and backward)
 
 
-- `y$`: Copy the entire line
-- `yf<something>`Copy from the corsor to the <something> caracthere.
+- `y$`: the line from the cursor forward
 
 - `u`: Undo
 - `ctrl + r`: Redo
@@ -86,8 +83,6 @@ Command + Count + Motion
 - `$`: Move cursor to the end of the line (in normal mode)
 - `gg`: Move cursor to the beginning of the file
 - `G`: Move cursor to the end of the file
-- `f`: Move cursor forward one character
-- `F`: Move cursor backward one character
 - `t`: Move cursor to the next occurrence of a search pattern
 - `T`: Move cursor to the previous occurrence of a search pattern
 - `n`: Move cursor to the next line
@@ -113,6 +108,15 @@ Yanking and delete goes to the same buffer which means that if you delete a line
 - `Y`: Copy text and move cursor to the beginning of the next line
 - `p`: Paste text
 - `P`: Paste text and move cursor to the beginning of the next line
+
+
+### Shortcuts for Buffers, Windows, and tabs
+
+`Ctrl-w w`: Cycles through windows.
+`Ctrl-w h`: Moves the cursor to the window on the left.
+`Ctrl-w j`: Moves the cursor to the window below.
+`Ctrl-w k`: Moves the cursor to the window above.
+`Ctrl-w l`: Moves the cursor to the window on the right.
 
 ---
 
@@ -140,6 +144,21 @@ Yanking and delete goes to the same buffer which means that if you delete a line
 - Remember, the power of NeoVim lies in its flexibility; experimenting with different workflows can help you find what best suits your needs.
 
 Each of these concepts serves a different purpose and understanding how to leverage them can significantly boost your workflow in NeoVim.
+
+## Plugins
+
+ **LSP and Autocompletion**: `lsp-zero.nvim` and its dependencies provide rich language features and intelligent code completion.
+- **UI Enhancements**: Themes like `tokyonight.nvim` and utility plugins like `fidget.nvim` improve visual feedback and aesthetics.
+- **Navigation and File Management**: Plugins like `neo-tree.nvim` and `telescope.nvim` offer advanced file exploration and search capabilities.
+- **Code Formatting and Comments**: `nvim-comment` and `indentmini.nvim` assist with code formatting and easy commenting.
+- **Git Integration**: `vim-fugitive`, `vim-rhubarb`, and `gitsigns.nvim` offer seamless Git integration directly within Vim.
+- **Status Line and Tab Line**: `lualine.nvim` is configured for a customizable status line, showcasing essential information.
+- **Syntax Highlighting**: `nvim-treesitter` provides advanced syntax highlighting for a wide range of programming languages.
+- **Productivity Tools**: `undotree`, `harpoon`, and `todo-comments.nvim` are among the plugins that enhance productivity by offering project navigation, undo history, and todo management.
+
+### neo-tree
+
+- `space + n` Open and close the tree  
 
 
 
@@ -205,12 +224,19 @@ zellij attach session_name // para ativar uma sessão
 
 zellij delete-session <nome_da_sessao> // para deletar uma sessão
 
-# Tabs
+# Tabs and panels
 
-ctrl + t + r // para renomear uma tab
+ctrl + t + r // rename tab
 ctrl + t + setas // alter entre tabs
-ctrl + p + n // cria um no panel
-alt + setas // alterna para o proximo panel
-ctrl + n + setas // para mudar o tamanho dos panels
+ctrl + p + n // creates a panel
+cltrl + p + x // close the panel
+alt + setas // alternates between the panels
+ctrl + n + setas // change the size of the panels
+Ctrl + <p> + <w> // showing/hiding floating panes
+ctrl + t + x // close actual tab
 
+# outros
+
+ctrl + p + z // para remover a borda verde
+Ctrl o + w. // open session-manager
 zellij --layout [layout_name] // para mudar o layout
