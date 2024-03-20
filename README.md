@@ -50,10 +50,23 @@ Command + Count + Motion
 - `l`: Move cursor right
 - `j`: Move cursor down
 - `k`: Move cursor up
+`Ctrl+d`: Desce meia tela.
+`Ctrl+u`: Sobe meia tela.
+`Ctrl+f`: Desce uma tela inteira (f de "forward").
+`Ctrl+b`: Sobe uma tela inteira (b de "backward").
+`{número}j`: Desce um número específico de linhas. Por exemplo, 10j desce 10 linhas.
+`{número}k`: Sobe um número específico de linhas. Por exemplo, 10k sobe 10 linhas.
+`G`: Vai para a última linha do arquivo.
+`gg`: Vai para a primeira linha do arquivo.
+`{número}G`: Vai para a linha de número especificado. Por exemplo, 50G vai para a linha 50.
+
+
 - `I`: Go to the beginning of the line (in insertion mode)
 - `A`: Go to the end of the line (in insertion mode)
 - `dw`: Delete a word from the cursor forward 
 - `diw`: Delete inner word in do not include space after the word
+
+
 
 - `t<something>` Jumps to before caractere <something>
 - `f<something>` Jumps to the caractere <something>
@@ -161,6 +174,50 @@ Each of these concepts serves a different purpose and understanding how to lever
 - `space + n` Open and close the tree  
 
 
+# Substituindo palavras
+
+
+Para selecionar várias instâncias de uma palavra no Neovim e substituí-las por outra, você pode usar a funcionalidade de busca e substituição. Aqui está um guia passo a passo sobre como fazer isso:
+
+1. **Abra o arquivo no Neovim**: Use o comando `:e caminho/para/seu/arquivo` para abrir o arquivo que você deseja editar.
+
+2. **Entre no modo de comando**: Pressione `:` para entrar no modo de comando.
+
+3. **Use o comando de busca e substituição**: O comando geral para busca e substituição no Neovim (e Vim) é:
+
+   ```
+   :%s/velho/novo/g
+   ```
+
+   - `%` indica que a substituição deve ocorrer em todo o arquivo. Se você quiser limitar a substituição a um intervalo de linhas, pode substituir `%` por, por exemplo, `1,10` para afetar apenas as linhas 1 a 10.
+   - `s` é o comando de substituição.
+   - `velho` é a palavra ou padrão que você deseja substituir.
+   - `novo` é a palavra ou padrão pelo qual você deseja substituir.
+   - `g` ao final indica que todas as instâncias na linha devem ser substituídas. Se você omitir `g`, apenas a primeira instância em cada linha será substituída.
+
+4. **Pressione Enter**: Após digitar o comando de substituição, pressione Enter para executá-lo.
+
+Por exemplo, para substituir todas as instâncias da palavra "gato" por "cachorro" em todo o arquivo, você digitaria:
+
+```
+:%s/gato/cachorro/g
+```
+
+E pressionaria Enter.
+
+Se você quiser confirmar cada substituição antes de fazê-la, pode adicionar um `c` ao final do comando, assim:
+
+```
+:%s/velho/novo/gc
+```
+
+Isso fará com que o Neovim pergunte se você deseja substituir cada instância encontrada.
+
+Para realizar uma busca e substituição sem diferenciar entre maiúsculas e minúsculas no Neovim, você pode utilizar o modificador `\c` imediatamente antes do padrão de busca no seu comando de substituição. Isso fará com que a busca seja insensível a maiúsculas e minúsculas. Aqui está como você faria isso:
+
+```
+:%s/\cpalavra/nova_palavra/g
+```
 
 ## Dicas
 
@@ -240,3 +297,25 @@ ctrl + t + x // close actual tab
 ctrl + p + z // para remover a borda verde
 Ctrl o + w. // open session-manager
 zellij --layout [layout_name] // para mudar o layout
+
+
+
+
+
+
+bromodomo
+bromodomo
+
+oi
+
+oi
+
+bromodomo
+
+bromodomo
+
+Teste
+
+oioi
+
+Teste
