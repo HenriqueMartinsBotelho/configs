@@ -219,6 +219,24 @@ Para realizar uma busca e substituição sem diferenciar entre maiúsculas e min
 :%s/\cpalavra/nova_palavra/g
 ```
 
+# Buscas no arquivo
+
+Para realizar uma busca no NeoVim, você pode usar o comando `:/`, seguido pelo termo que deseja procurar. Aqui estão os passos básicos para realizar uma busca:
+
+1. **Iniciar a Busca**: Pressione a tecla `/` para iniciar o modo de busca.
+2. **Digitar o Termo de Busca**: Digite o termo que deseja buscar e pressione `Enter`. O NeoVim destacará e irá para a primeira ocorrência do termo buscado no documento.
+3. **Navegar pelos Resultados**: Você pode usar `n` para ir para a próxima ocorrência do termo buscado e `N` para ir à ocorrência anterior.
+
+Para limpar digite :noh
+
+Além disso, existem algumas opções de busca que você pode utilizar para refinar a sua pesquisa:
+
+- **Busca Sensível a Maiúsculas e Minúsculas**: Por padrão, a busca no NeoVim é insensível a maiúsculas e minúsculas, a menos que você use letras maiúsculas em sua busca. Se quiser forçar a busca a ser sempre sensível a maiúsculas e minúsculas, você pode usar o comando `:set case sensitive`.
+- **Usar Expressões Regulares**: O NeoVim suporta o uso de expressões regulares em suas buscas, o que permite realizar buscas mais complexas e precisas.
+
+Para modificar o comportamento padrão da busca, você pode configurar algumas opções no seu arquivo de configuração `init.vim`. Por exemplo, para fazer com que as buscas sejam sempre sensíveis ao caso, você pode adicionar a linha `set ignorecase` e `set smartcase` no seu `init.vim`. O `ignorecase` faz com que a busca seja insensível a maiúsculas e minúsculas, e o `smartcase` faz com que a busca se torne sensível a maiúsculas se você digitar qualquer letra maiúscula.
+
+Lembrando que o NeoVim é altamente personalizável, então existem muitas outras opções e plugins que podem melhorar ou modificar a forma como você realiza buscas dentro do editor.
 ## Dicas
 
 No Vim, duplicar uma linha pode ser feito de várias maneiras, dependendo das preferências do usuário e do contexto. Aqui estão algumas das maneiras mais comuns de duplicar uma linha:

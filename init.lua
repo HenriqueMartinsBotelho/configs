@@ -1,4 +1,12 @@
 local set = vim.opt
+local keymap = vim.keymap
+
+-- Desativa a criação de arquivos de backup, arquivos de troca e writebackup
+vim.opt.backup = false      -- Não criar arquivos de backup
+vim.opt.writebackup = false -- Não criar arquivos de backup ao escrever
+vim.opt.swapfile = false    -- Não criar arquivos de troca
+
+
 set.autoindent = true         -- Habilita indentação automática baseada na linha anterior
 set.clipboard = "unnamedplus" -- Permite acesso ao clipboard do sistema
 set.expandtab = true          -- Converte tabs em espaços
@@ -11,10 +19,10 @@ set.tabstop = 2               -- Define quantos espaços reais um caractere de t
 vim.o.updatetime = 250        -- Reduz o tempo de espera para trigger 'CursorHold' e 'CursorHoldI'
 
 -- Configurações da tecla líder
-vim.g.mapleader = " "                                       -- Define a tecla líder para espaço
-vim.g.maplocalleader = " "                                  -- Define a tecla líder local para espaço
+vim.g.mapleader = " "                                   -- Define a tecla líder para espaço
+vim.g.maplocalleader = " "                              -- Define a tecla líder local para espaço
 
-vim.keymap.set('n', 'K', vim.lsp.buf.hover, { buffer = 0 }) -- Mostra as informacões (tooltip) da variável ao apertar shift + k
+keymap.set('n', 'K', vim.lsp.buf.hover, { buffer = 0 }) -- Mostra as informacões (tooltip) da variável ao apertar shift + k
 
 local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
@@ -56,14 +64,6 @@ require('lazy').setup({
       }
     },
   },
-  -- {
-  -- 	'ellisonleao/gruvbox.nvim',
-  -- 	lazy = false,
-  -- 	priority = 1000,
-  -- 	config = function()
-  -- 		vim.cmd('colorscheme gruvbox')
-  -- 	end
-  -- },
   {
     'folke/tokyonight.nvim',
     lazy = false,
@@ -122,13 +122,13 @@ require('lazy').setup({
     dependencies = { 'nvim-lua/plenary.nvim' },
     init = function()
       local builtin = require('telescope.builtin')
-      vim.keymap.set('n', '<leader>fg', builtin.git_files, {})
-      vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
-      vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
-      vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
-      vim.keymap.set('n', '<leader>fd', builtin.lsp_document_symbols, {})
-      vim.keymap.set('n', '<leader>fw', builtin.lsp_workspace_symbols, {})
-      vim.keymap.set('n', '<leader>fe', builtin.diagnostics, {})
+      keymap.set('n', '<leader>fg', builtin.git_files, {})
+      keymap.set('n', '<leader>ff', builtin.find_files, {})
+      keymap.set('n', '<leader>fb', builtin.buffers, {})
+      keymap.set('n', '<leader>fh', builtin.help_tags, {})
+      keymap.set('n', '<leader>fd', builtin.lsp_document_symbols, {})
+      keymap.set('n', '<leader>fw', builtin.lsp_workspace_symbols, {})
+      keymap.set('n', '<leader>fe', builtin.diagnostics, {})
     end,
   },
   {
@@ -144,12 +144,12 @@ require('lazy').setup({
     'Exafunction/codeium.vim',
     event = 'BufEnter',
     config = function()
-      vim.keymap.set('i', '<C-x>', function() return vim.fn['codeium#Accept']() end, { expr = true, silent = true })
-      vim.keymap.set('i', '<c-;>', function() return vim.fn['codeium#CycleCompletions'](1) end,
+      keymap.set('i', '<C-x>', function() return vim.fn['codeium#Accept']() end, { expr = true, silent = true })
+      keymap.set('i', '<c-;>', function() return vim.fn['codeium#CycleCompletions'](1) end,
         { expr = true, silent = true })
-      vim.keymap.set('i', '<c-,>', function() return vim.fn['codeium#CycleCompletions'](-1) end,
+      keymap.set('i', '<c-,>', function() return vim.fn['codeium#CycleCompletions'](-1) end,
         { expr = true, silent = true })
-      vim.keymap.set('i', '<c-g>', function() return vim.fn['codeium#Clear']() end, { expr = true, silent = true })
+      keymap.set('i', '<c-g>', function() return vim.fn['codeium#Clear']() end, { expr = true, silent = true })
     end
   }
 })
@@ -177,8 +177,8 @@ lsp.on_attach(function(client, bufnr)
   lsp.default_keymaps({ buffer = bufnr })
   lsp.async_autoformat(client, bufnr)
 
-  vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename)
-  vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action)
+  keymap.set('n', '<leader>rn', vim.lsp.buf.rename)
+  keymap.set('n', '<leader>ca', vim.lsp.buf.code_action)
 
   -- Habilita diagnósticos em linha
   vim.diagnostic.config({
@@ -209,11 +209,11 @@ cmp.setup({
   }
 })
 
-vim.keymap.set('n', '<leader>gs', vim.cmd.Git)
+keymap.set('n', '<leader>gs', vim.cmd.Git)
 
 
 
-vim.keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle)
+keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle)
 
 require('nvim-treesitter.configs').setup {
   ensure_installed = {
@@ -235,25 +235,25 @@ require('nvim-treesitter.configs').setup {
 local mark = require('harpoon.mark')
 local ui = require('harpoon.ui')
 
-vim.keymap.set('n', '<leader>a', mark.add_file)
-vim.keymap.set('n', '<C-e>', ui.toggle_quick_menu)
-vim.keymap.set('n', '<C-h>', function() ui.nav_file(1) end)
-vim.keymap.set('n', '<C-t>', function() ui.nav_file(2) end)
-vim.keymap.set('n', '<C-n>', function() ui.nav_file(3) end)
-vim.keymap.set('n', '<C-s>', function() ui.nav_file(4) end)
+keymap.set('n', '<leader>a', mark.add_file)
+keymap.set('n', '<C-e>', ui.toggle_quick_menu)
+keymap.set('n', '<C-h>', function() ui.nav_file(1) end)
+keymap.set('n', '<C-t>', function() ui.nav_file(2) end)
+keymap.set('n', '<C-n>', function() ui.nav_file(3) end)
+keymap.set('n', '<C-s>', function() ui.nav_file(4) end)
 
 
 
-vim.keymap.set('n', '<leader>n', ':Neotree reveal toggle<CR>', { noremap = true, silent = true })
+keymap.set('n', '<leader>n', ':Neotree reveal toggle<CR>', { noremap = true, silent = true })
 
 
 
-vim.keymap.set("n", "<leader>xx", function() require("trouble").toggle() end)
-vim.keymap.set("n", "<leader>xw", function() require("trouble").toggle("workspace_diagnostics") end)
-vim.keymap.set("n", "<leader>xd", function() require("trouble").toggle("document_diagnostics") end)
-vim.keymap.set("n", "<leader>xq", function() require("trouble").toggle("quickfix") end)
-vim.keymap.set("n", "<leader>xl", function() require("trouble").toggle("loclist") end)
-vim.keymap.set("n", "gR", function() require("trouble").toggle("lsp_references") end)
+keymap.set("n", "<leader>xx", function() require("trouble").toggle() end)
+keymap.set("n", "<leader>xw", function() require("trouble").toggle("workspace_diagnostics") end)
+keymap.set("n", "<leader>xd", function() require("trouble").toggle("document_diagnostics") end)
+keymap.set("n", "<leader>xq", function() require("trouble").toggle("quickfix") end)
+keymap.set("n", "<leader>xl", function() require("trouble").toggle("loclist") end)
+keymap.set("n", "gR", function() require("trouble").toggle("lsp_references") end)
 
 
 -- lualine setup
