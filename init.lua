@@ -1,10 +1,11 @@
 local set = vim.opt
 local keymap = vim.keymap
+local opts = { noremap = true, silent = true }
 
 -- Desativa a criação de arquivos de backup, arquivos de troca e writebackup
-vim.opt.backup = false      -- Não criar arquivos de backup
-vim.opt.writebackup = false -- Não criar arquivos de backup ao escrever
-vim.opt.swapfile = false    -- Não criar arquivos de troca
+set.backup = false      -- Não criar arquivos de backup
+set.writebackup = false -- Não criar arquivos de backup ao escrever
+set.swapfile = false    -- Não criar arquivos de troca
 
 
 set.autoindent = true         -- Habilita indentação automática baseada na linha anterior
@@ -23,6 +24,21 @@ vim.g.mapleader = " "                                   -- Define a tecla líder
 vim.g.maplocalleader = " "                              -- Define a tecla líder local para espaço
 
 keymap.set('n', 'K', vim.lsp.buf.hover, { buffer = 0 }) -- Mostra as informacões (tooltip) da variável ao apertar shift + k
+
+-- Split window
+keymap.set("n", "ss", ":split<Return>", opts)
+keymap.set("n", "sv", ":vsplit<Return>", opts)
+-- Move window
+keymap.set("n", "sh", "<C-w>h")
+keymap.set("n", "sk", "<C-w>k")
+keymap.set("n", "sj", "<C-w>j")
+keymap.set("n", "sl", "<C-w>l")
+
+-- Resize window
+keymap.set("n", "<leader>h", ":vertical resize -4<CR>", opts)
+keymap.set("n", "<leader>l", ":vertical resize +4<CR>", opts)
+keymap.set("n", "<leader>j", ":resize +4<CR>", opts)
+keymap.set("n", "<leader>k", ":resize -4<CR>", opts)
 
 local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then

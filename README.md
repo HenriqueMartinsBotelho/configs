@@ -151,6 +151,20 @@ Yanking and delete goes to the same buffer which means that if you delete a line
 - **Creation:** Open a new tab with `:tabnew` or `:tabnew filename` to open a specific file in a new tab.
 - **Navigation:** Navigate between tabs using `:tabnext` (or `:tabn`) for the next tab, `:tabprevious` (or `:tabp`) for the previous tab, and `:tabfirst` and `:tablast` to jump to the first or last tab, respectively. You can also use `gt` to go to the next tab and `gT` to go to the previous tab.
 
+Para abrir uma nova aba (tab) no Neovim, você pode usar o comando `:tabnew`. Isso criará uma nova aba com um buffer vazio. Se você quiser abrir um arquivo específico em uma nova aba, basta adicionar o caminho do arquivo após o comando, como `:tabnew /caminho/para/seu/arquivo`.
+
+Aqui estão alguns comandos úteis relacionados a abas no Neovim:
+
+- `:tabnew [nome do arquivo]` - Abre uma nova aba com um arquivo especificado. Se nenhum arquivo for especificado, uma nova aba em branco é aberta.
+- `:tabclose` - Fecha a aba atual.
+- `:tabnext` ou `gt` - Vai para a próxima aba.
+- `:tabprev` ou `gT` - Vai para a aba anterior.
+- `:tabfirst` - Vai para a primeira aba.
+- `:tablast` - Vai para a última aba.
+- `:tabmove [número]` - Move a aba atual para a posição especificada (começando de 0).
+
+Você pode combinar esses comandos para gerenciar eficientemente suas abas no Neovim, tornando mais fácil trabalhar com múltiplos arquivos ou projetos simultaneamente.
+
 ### Practical Tips
 - Understanding and effectively using these concepts allows you to manage complex editing tasks with ease.
 - Customize your key bindings to make window, buffer, and tab management more efficient.
