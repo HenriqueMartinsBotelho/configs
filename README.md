@@ -187,9 +187,13 @@ Each of these concepts serves a different purpose and understanding how to lever
 
 - `space + n` Open and close the tree  
 
+# Indentacão
+
+No modo visual selecione as linha que deseja indentar.
+Para indentar para a direita, pressione > uma vez para cada nível de indentação desejado.
+Para indentar para a esquerda, pressione < uma vez para cada nível de indentação desejado.
 
 # Substituindo palavras
-
 
 Para selecionar várias instâncias de uma palavra no Neovim e substituí-las por outra, você pode usar a funcionalidade de busca e substituição. Aqui está um guia passo a passo sobre como fazer isso:
 
@@ -295,59 +299,3 @@ vim.keymap.set("n", "<leader>xd", function() require("trouble").toggle("document
 vim.keymap.set("n", "<leader>xq", function() require("trouble").toggle("quickfix") end)
 vim.keymap.set("n", "<leader>xl", function() require("trouble").toggle("loclist") end)
 vim.keymap.set("n", "gR", function() require("trouble").toggle("lsp_references") end)
-
-
----
-
-The following sections are only for zellij users.
-
-# Zellij Shortcuts
-
-
-
-zellij list-sessions
-
-zellij options --session-name <nome_da_sessao> // para criar uma nova sessão
-
-zellij attach session_name // para ativar uma sessão
-
-zellij delete-session <nome_da_sessao> // para deletar uma sessão
-
-# Tabs and panels
-
-ctrl + t + r // rename tab
-ctrl + t + setas // alter entre tabs
-ctrl + p + n // creates a panel
-cltrl + p + x // close the panel
-alt + setas // alternates between the panels
-ctrl + n + setas // change the size of the panels
-Ctrl + <p> + <w> // showing/hiding floating panes
-ctrl + t + x // close actual tab
-
-# outros
-
-ctrl + p + z // para remover a borda verde
-Ctrl o + w. // open session-manager
-zellij --layout [layout_name] // para mudar o layout
-
-
-
-
-
-
-bromodomo
-bromodomo
-
-oi
-
-oi
-
-bromodomo
-
-bromodomo
-
-Teste
-
-oioi
-
-Teste

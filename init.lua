@@ -81,14 +81,20 @@ require('lazy').setup({
     },
   },
   {
-    'folke/tokyonight.nvim',
+    "scottmckendry/cyberdream.nvim",
     lazy = false,
     priority = 1000,
-    opts = {},
     config = function()
-      vim.cmd('colorscheme tokyonight-night')
-      vim.cmd('hi MsgArea guibg=#15161e')
-    end
+      require("cyberdream").setup({
+        -- Recommended - see "Configuring" below for more config options
+        transparent = true,
+        italic_comments = true,
+        hide_fillchars = true,
+        borderless_telescope = true,
+        terminal_colors = true,
+      })
+      vim.cmd("colorscheme cyberdream") -- set the colorscheme
+    end,
   },
   {
     'folke/trouble.nvim',
@@ -272,10 +278,11 @@ keymap.set("n", "<leader>xl", function() require("trouble").toggle("loclist") en
 keymap.set("n", "gR", function() require("trouble").toggle("lsp_references") end)
 
 
+local cyberdream = require("lualine.themes.cyberdream")
 -- lualine setup
 require('lualine').setup {
   options = {
-    theme = 'tokyonight',
+    theme = 'cyberdream',
     component_separators = '',
     section_separators = { left = '', right = '' },
   },
