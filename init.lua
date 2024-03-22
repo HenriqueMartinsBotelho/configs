@@ -16,7 +16,6 @@ set.number = true             -- Exibe números das linhas
 set.shiftwidth = 2            -- Define a quantidade de espaços para o recuo
 set.softtabstop = 2           -- Define quantos espaços são considerados um 'tab'
 set.tabstop = 2               -- Define quantos espaços reais um caractere de tabulação ocupa
-
 vim.o.updatetime = 250        -- Reduz o tempo de espera para trigger 'CursorHold' e 'CursorHoldI'
 
 -- Configurações da tecla líder
@@ -24,6 +23,16 @@ vim.g.mapleader = " "                                   -- Define a tecla líder
 vim.g.maplocalleader = " "                              -- Define a tecla líder local para espaço
 
 keymap.set('n', 'K', vim.lsp.buf.hover, { buffer = 0 }) -- Mostra as informacões (tooltip) da variável ao apertar shift + k
+
+-- Salvar e refazer
+vim.api.nvim_set_keymap('n', '<C-s>', ':w<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('i', '<C-s>', '<Esc>:w<CR>a', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<C-z>', ':redo<CR>', { noremap = true, silent = true })
+
+
+-- Navegação entre buffers
+keymap.set('n', 'g<Right>', ':bnext<CR>', opts)
+keymap.set('n', 'g<Left>', ':bprevious<CR>', opts)
 
 -- Split window
 keymap.set("n", "ss", ":split<Return>", opts)

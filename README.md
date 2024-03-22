@@ -33,6 +33,102 @@ Here are some advantages:
 
 Contributions are welcome! If you'd like to improve the configuration or add new features, please feel free to fork the repository, make your changes, and submit a pull request.
 
+---
+
+## NeoVim Shortcuts Guide
+
+
+### Normal Mode Shortcuts
+
+In Normal Mode, shortcuts perform a variety of text manipulation and navigation tasks:
+
+- `ciw`: "Change Inner Word" - deletes the current word under the cursor, transitioning into Insert Mode for immediate text entry.
+- `i`: Enter Insert Mode at the cursor's position.
+- `I`: Insert text at the beginning of the line.
+- `r`: Replace the character under the cursor.
+- `S`: Substitute the entire line, deleting it and entering Insert Mode.
+- Navigation keys (`h`, `j`, `k`, `l`) move the cursor left, down, up, and right, respectively.
+- `Ctrl+d/u`: Scroll half a screen down/up.
+- `Ctrl+f/b`: Scroll a full screen forward/backward.
+- `{number}j/k`: Move down/up a specific number of lines, e.g., `10j` moves down 10 lines.
+- `G`: Jump to the last line of the file.
+- `gg`: Go to the first line.
+- `{number}G`: Jump to a specified line number, e.g., `50G` goes to line 50.
+- `dw`, `diw`: Delete a word from the cursor forward; delete the inner word without including the following space.
+- `t<character>`, `f<character>`: Jump to the character before (`t`) or exactly at (`f`) the specified character.
+- `,`, `;`: Repeat the last `t` or `f` command in forward or backward direction.
+- `y$`: Yank (copy) the line from the cursor to the end.
+- `u`, `Ctrl + r`: Undo and redo changes.
+- Deletion commands (`d$`, `dd`, `d3j`, `d3k`) remove text from the cursor to the end of the line, the entire line, or specified numbers of lines down/up.
+- Word navigation (`w`, `e`, `b`) moves the cursor forward to the start/end of a word or backward to the start of a word.
+- `0`, `$`: Move to the start/end of the line.
+- `o`, `O`: Insert a new line below/above the cursor.
+- `gg`, `G`: Move to the start/end of the file.
+- Search navigation (`t`, `T`, `n`, `N`) jumps to the next or previous occurrence of a search pattern.
+- Visual block navigation (`v`, `V`) starts visual selection or line-wise visual selection.
+
+### Visual Mode Shortcuts
+
+In Visual Mode, manipulate text selections with:
+
+- `v`, `V`: Start visual mode with or without cursor movement.
+- `>`, `<`, `>>`, `<<`: Indent or unindent text or text blocks.
+- `s`, `S`, `x`, `X`: Delete or cut text, optionally moving the cursor to the next line.
+- `y`, `Y`, `p`, `P`: Copy or paste text, adjusting cursor position as needed.
+
+### Managing Buffers, Windows, and Tabs
+
+**Buffers**: Represent open files. Navigate with `:bnext`, `:bprevious`, or `:buffer N`.
+
+**Windows**: Viewports displaying buffers. Create with `:split`/`:vsplit`, navigate with `Ctrl+w` + direction.
+
+**Tabs**: Collections of windows. Manage with commands like `:tabnew`, `:tabnext`, `gt`, `:tabmove`.
+
+### Plugins for Enhanced Functionality
+
+- **Language Support**: `lsp-zero.nvim` for language features and autocompletion.
+- **UI Enhancements**: `tokyonight.nvim`, `fidget.nvim` for aesthetics.
+- **File Management**: `neo-tree.nvim`, `telescope.nvim` for navigation and search.
+- **Code Formatting**: `nvim-comment`, `indentmini.nvim` for easy commenting and indentation.
+- **Git Integration**: `vim-fugitive`, `vim-rhubarb`, `gitsigns.nvim` for version control.
+- **UI Components**: `lualine.nvim` for a customizable status line, `nvim-treesitter` for syntax highlighting.
+
+### Tips and Tricks
+
+- **Indentation**: Use `>` and `<` in Visual Mode for adjusting indentation levels.
+
+- **Word Replacement**: Utilize `:%s/old/new/g` for global search and replace.
+
+- **File Searching**: Use `:/pattern` to search within a file, navigating results with `n` (next) and `N` (previous). To clear search highlights, use `:noh`.
+
+- **Case Sensitivity**: Use `:set case sensitive` for case-sensitive searches. Alternatively, `\c` in your search pattern (`:/\cpattern`) makes the search case insensitive.
+
+- **Custom Key Bindings**: Customize key mappings in your `init.vim` to streamline actions such as navigation, editing, and accessing frequently used features.
+
+- **Plugin Management**: Utilize plugin managers like `vim-plug` or `packer.nvim` to easily install, update, and manage your NeoVim plugins.
+
+- **Theme and Aesthetics**: Choose a theme that suits your visual preference and enhances readability. Many themes also offer support for `nvim-treesitter`, improving syntax highlighting.
+
+- **Single Line Duplication**: The `yyp` or `Yp` command duplicates the current line by yanking and pasting it.
+
+- **Multiple Lines**: In Visual Mode, select multiple lines with `v` or `V`, then `y` to yank and `p` to paste.
+
+- **Using Command Line**: `:t.` duplicates the current line below itself. For duplicating multiple times, use `:.t.+1N`, replacing N with the desired number of duplicates.
+
+## Plugins
+
+### Error Navigation with Trouble Plugin
+
+The Trouble plugin facilitates navigating through code errors and diagnostics. Configure key mappings for efficient use:
+
+- `<leader>xx`: Toggle the Trouble window.
+- `<leader>xw`: Display workspace diagnostics.
+- `<leader>xd`: Show document diagnostics.
+- `<leader>xq`: Toggle the quickfix list.
+- `<leader>xl`: Toggle the location list.
+- `gR`: Show references of the symbol under the cursor in Trouble.
+
+
 
 ## NeoVim Shortcuts
 
