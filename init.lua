@@ -49,6 +49,10 @@ keymap.set("n", "<leader>l", ":vertical resize +4<CR>", opts)
 keymap.set("n", "<leader>j", ":resize +4<CR>", opts)
 keymap.set("n", "<leader>k", ":resize -4<CR>", opts)
 
+-- Personalização do highlight para busca
+vim.cmd [[highlight Search ctermfg=black ctermbg=yellow]]
+
+
 local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
@@ -89,21 +93,12 @@ require('lazy').setup({
       }
     },
   },
+
   {
-    "scottmckendry/cyberdream.nvim",
+    "folke/tokyonight.nvim",
     lazy = false,
     priority = 1000,
-    config = function()
-      require("cyberdream").setup({
-        -- Recommended - see "Configuring" below for more config options
-        transparent = true,
-        italic_comments = true,
-        hide_fillchars = true,
-        borderless_telescope = true,
-        terminal_colors = true,
-      })
-      vim.cmd("colorscheme cyberdream") -- set the colorscheme
-    end,
+    opts = {},
   },
   {
     'folke/trouble.nvim',
@@ -175,7 +170,7 @@ require('lazy').setup({
     'Exafunction/codeium.vim',
     event = 'BufEnter',
     config = function()
-      keymap.set('i', '<C-x>', function() return vim.fn['codeium#Accept']() end, { expr = true, silent = true })
+      keymap.set('i', '<C-j>', function() return vim.fn['codeium#Accept']() end, { expr = true, silent = true })
       keymap.set('i', '<c-;>', function() return vim.fn['codeium#CycleCompletions'](1) end,
         { expr = true, silent = true })
       keymap.set('i', '<c-,>', function() return vim.fn['codeium#CycleCompletions'](-1) end,
@@ -222,11 +217,6 @@ function ToggleCodeium()
     print("Codeium enabled")
   end
 end
-
--- Mapeia um atalho para a função ToggleCodeium
-vim.api.nvim_set_keymap('n', '<F5>', ':lua ToggleCodeium()<CR>', { noremap = true, silent = true })
-
-
 
 local lsp = require('lsp-zero').preset('recommended')
 
@@ -318,13 +308,13 @@ keymap.set("n", "<leader>xl", function() require("trouble").toggle("loclist") en
 keymap.set("n", "gR", function() require("trouble").toggle("lsp_references") end)
 
 
-local cyberdream = require("lualine.themes.cyberdream")
 -- lualine setup
 require('lualine').setup {
   options = {
-    theme = 'cyberdream',
+    theme = 'tokyonight',
     component_separators = '',
     section_separators = { left = '', right = '' },
+
   },
   sections = {
     lualine_a = {

@@ -15,19 +15,19 @@ Here are some advantages:
 ## Getting Started
 
 1. **Prerequisites**:
-    - Ensure you have [NeoVim](https://neovim.io/) installed on your system.
-
+   - Ensure you have [NeoVim](https://neovim.io/) installed on your system.
+   - Install ripgrep (if you don't already have it): `brew install ripgrep` or `apt install ripgrep` or `yum install ripgrep`
 2. **Installation**:
-    - Clone this repository to your NeoVim configuration directory:
 
-    ```bash
-    git clone https://github.com/HenriqueMartinsBotelho/configs.git ~/.config/nvim
-    ```
+   - Clone this repository to your NeoVim configuration directory:
+
+   ```bash
+   git clone https://github.com/HenriqueMartinsBotelho/configs.git ~/.config/nvim
+   ```
 
 3. **Configuration**:
-    - After cloning, open NeoVim and the `init.lua` file will automatically load your new configuration.
-    - You can start editing the `init.lua` file to customize your NeoVim setup. Comments in the file will guide you through the various sections and settings.
-
+   - After cloning, open NeoVim and the `init.lua` file will automatically load your new configuration.
+   - You can start editing the `init.lua` file to customize your NeoVim setup. Comments in the file will guide you through the various sections and settings.
 
 ## Contributing
 
@@ -36,7 +36,6 @@ Contributions are welcome! If you'd like to improve the configuration or add new
 ---
 
 ## NeoVim Shortcuts Guide
-
 
 ### Normal Mode Shortcuts
 
@@ -100,7 +99,6 @@ In Visual Mode, manipulate text selections with:
 
 - **Reload configuration**: Use `:source $MYVIMRC` to reload your NeoVim configuration.
 
-
 ## Plugins
 
 ### Error Navigation with Trouble Plugin
@@ -118,7 +116,8 @@ The Trouble plugin facilitates navigating through code errors and diagnostics. C
 
 ## Plugins
 
- **LSP and Autocompletion**: `lsp-zero.nvim` and its dependencies provide rich language features and intelligent code completion.
+**LSP and Autocompletion**: `lsp-zero.nvim` and its dependencies provide rich language features and intelligent code completion.
+
 - **UI Enhancements**: Themes like `tokyonight.nvim` and utility plugins like `fidget.nvim` improve visual feedback and aesthetics.
 - **Navigation and File Management**: Plugins like `neo-tree.nvim` and `telescope.nvim` offer advanced file exploration and search capabilities.
 - **Code Formatting and Comments**: `nvim-comment` and `indentmini.nvim` assist with code formatting and easy commenting.
@@ -129,7 +128,7 @@ The Trouble plugin facilitates navigating through code errors and diagnostics. C
 
 ### Plugin neo-tree
 
-- `space + n` Open and close the tree  
+- `space + n` Open and close the tree
 
 ## Configurações do plugin trouble
 
@@ -145,21 +144,22 @@ vim.keymap.set("n", "gR", function() require("trouble").toggle("lsp_references")
 # Some theory behind NeoVim
 
 ### Buffers
+
 - **What They Are:** Buffers represent open instances of files in memory. When you open a file in NeoVim, it's loaded into a buffer. Even if you're not actively viewing the file, as long as it's open, its buffer exists.
 - **Usage:** Buffers are useful for working with multiple files simultaneously without necessarily displaying all of them on the screen.
 - **Creation:** Open a file in NeoVim using `:e filename` or `:edit filename`, and it automatically creates a buffer for that file.
 - **Navigation:** Switch between buffers using commands like `:bnext` (or `:bn`) for the next buffer, `:bprevious` (or `:bp`) for the previous buffer, and `:buffer N` (where N is the buffer number) to jump directly to a specific buffer.
 
 ### Windows
+
 - **What They Are:** Windows are viewports or splits within the NeoVim interface that display buffers. A single buffer can be displayed in multiple windows at the same time, and each window can show a different part of the buffer.
 - **Usage:** Windows are useful for visually comparing files side by side or for keeping an eye on one file while editing another.
 - **Creation:** Create new windows using commands like `:split` (or `:sp`) to split horizontally, and `:vsplit` (or `:vsp`) to split vertically.
 - **Navigation:** Move between windows using the `Ctrl+w` followed by a navigation key (h, j, k, l) which moves left, down, up, and right, respectively.
 
 ### Tabs
+
 - **What They Are:** Tabs in NeoVim are collections of windows. Each tab can contain its own set of windows, allowing you to organize your workspace into logical groups.
 - **Usage:** Tabs are useful for organizing completely different projects or workspaces within the same NeoVim session.
 - **Creation:** Open a new tab with `:tabnew` or `:tabnew filename` to open a specific file in a new tab.
 - **Navigation:** Navigate between tabs using `:tabnext` (or `:tabn`) for the next tab, `:tabprevious` (or `:tabp`) for the previous tab, and `:tabfirst` and `:tablast` to jump to the first or last tab, respectively. You can also use `gt` to go to the next tab and `gT` to go to the previous tab.
-
-
