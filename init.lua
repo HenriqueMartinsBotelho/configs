@@ -4,7 +4,7 @@ local opts = { noremap = true, silent = true }
 
 -- Desativa a criação de arquivos de backup, arquivos de troca e writebackup
 set.backup = false      -- Não criar arquivos de backup
-set.writebackup = false -- Não criar arquivos de backup ao escrever
+set.writebackup = false -- Não criar arquivos de backup ao escreverrr
 set.swapfile = false    -- Não criar arquivos de troca
 
 
@@ -182,7 +182,8 @@ require('lazy').setup({
         { expr = true, silent = true })
       keymap.set('i', '<c-g>', function() return vim.fn['codeium#Clear']() end, { expr = true, silent = true })
     end
-  }
+  },
+
 })
 
 function ToggleCodeium()
@@ -228,7 +229,12 @@ lsp.set_sign_icons({
   info = '»',
 })
 
+local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
 require('lspconfig').lua_ls.setup({})
+
+
+require('lspconfig').tsserver.setup({ capabilities = lsp_capabilities })
+
 
 lsp.setup()
 
@@ -248,7 +254,7 @@ keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle)
 
 require('nvim-treesitter.configs').setup {
   ensure_installed = {
-    'javascript', 'typescript', 'css', 'html',
+    'javascript', 'typescript', 'tsx', 'css', 'html',
     'c', 'cpp', 'python', 'lua', 'rust', 'go', 'haskell',
     'dockerfile', 'json', 'yaml', 'toml', 'bash', 'fish',
   },
