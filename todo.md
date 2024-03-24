@@ -1,2 +1,4 @@
 - Integração com o Git (ver vídeo que assisti no meu histório do celular).
 - folter com o neo-ufo
+- mover pastas, renomear arquivos, deletar arquivos, etc.
+- Duplicar linhas, mover linhas.

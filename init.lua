@@ -158,8 +158,8 @@ require('lazy').setup({
       keymap.set('n', '<leader>fb', builtin.buffers, {})
       keymap.set('n', '<leader>fh', builtin.help_tags, {})
       keymap.set('n', '<leader>fd', builtin.lsp_document_symbols, {})
-      keymap.set('n', '<leader>fw', builtin.lsp_workspace_symbols, {})
       keymap.set('n', '<leader>fe', builtin.diagnostics, {})
+      keymap.set('n', '<leader>fw', builtin.live_grep, {})
     end,
   },
   {
