@@ -183,7 +183,32 @@ require('lazy').setup({
       keymap.set('i', '<c-g>', function() return vim.fn['codeium#Clear']() end, { expr = true, silent = true })
     end
   },
-
+  {
+    'stevearc/conform.nvim',
+    event = 'BufReadPre',
+    opts = {
+      formatters_by_ft = {
+        lua = { 'stylua' },
+        javascript = { 'prettier' },
+        markdown = { 'prettier' },
+        go = { 'goimports', 'gofumpt' },
+        pgsql = { 'sql_formatter' },
+        sql = { 'sql_formatter' },
+        typescript = { 'prettier' },
+        typescriptreact = { 'prettier' },
+        json = { 'prettier' },
+        yaml = { 'prettier' },
+      },
+      format_on_save = function(buf)
+        print("Trying to format", buf)
+        if vim.g.formatting_disabled or vim.b[buf].formatting_disabled then
+          print("Formatting disabled", buf)
+          return
+        end
+        return { timeout_ms = 500, lsp_fallback = true }
+      end,
+    },
+  },
 })
 
 function ToggleCodeium()
@@ -256,7 +281,7 @@ require('nvim-treesitter.configs').setup {
   ensure_installed = {
     'javascript', 'typescript', 'tsx', 'css', 'html',
     'c', 'cpp', 'python', 'lua', 'rust', 'go', 'haskell',
-    'dockerfile', 'json', 'yaml', 'toml', 'bash', 'fish',
+    'dockerfile', 'json', 'yaml', 'toml', 'bash', 'fish'
   },
   auto_update = true,
   incremental_selection = {

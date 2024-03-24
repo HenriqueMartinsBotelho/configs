@@ -98,6 +98,9 @@ In Visual Mode, manipulate text selections with:
 
 - **Using Command Line**: `:t.` duplicates the current line below itself. For duplicating multiple times, use `:.t.+1N`, replacing N with the desired number of duplicates.
 
+- **Reload configuration**: Use `:source $MYVIMRC` to reload your NeoVim configuration.
+
+
 ## Plugins
 
 ### Error Navigation with Trouble Plugin
