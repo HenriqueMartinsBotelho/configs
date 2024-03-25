@@ -45,6 +45,7 @@ keymap.set("n", "sl", "<C-w>l")
 
 -- Resize window
 keymap.set("n", "<leader>h", ":vertical resize -4<CR>", opts)
+
 keymap.set("n", "<leader>l", ":vertical resize +4<CR>", opts)
 keymap.set("n", "<leader>j", ":resize +4<CR>", opts)
 keymap.set("n", "<leader>k", ":resize -4<CR>", opts)
@@ -93,12 +94,18 @@ require('lazy').setup({
       }
     },
   },
-
   {
-    "folke/tokyonight.nvim",
-    lazy = false,
+    "catppuccin/nvim",
+    name = "catppuccin",
     priority = 1000,
-    opts = {},
+    config = function()
+      require("catppuccin").setup({
+        flavour = "mocha", -- latte, frappe, macchiato, mocha
+        transparent_background = true,
+        show_end_of_buffer = false,
+      })
+      vim.cmd.colorscheme "catppuccin"
+    end
   },
   {
     'folke/trouble.nvim',
@@ -164,7 +171,29 @@ require('lazy').setup({
       'nvim-lua/plenary.nvim',
       'nvim-tree/nvim-web-devicons',
       'MunifTanjim/nui.nvim',
-    }
+    },
+    keys = {
+      { '<leader>n', '<cmd>Neotree toggle<cr>', desc = 'NeoTree' },
+    },
+    config = function()
+      require('neo-tree').setup({
+        default_component_configs = {
+          git_status = {
+            symbols = {
+              added     = "✅",
+              modified  = "🔥",
+              deleted   = "D",
+              renamed   = "R",
+              untracked = "UN",
+              ignored   = "I",
+              unstaged  = "US",
+              staged    = "S",
+              conflict  = "C",
+            },
+          },
+        }
+      })
+    end,
   },
   {
     'Exafunction/codeium.vim',
@@ -239,7 +268,7 @@ end)
 
 lsp.set_sign_icons({
   error = '✘',
-  warn = '',
+  warn = ' ',
   hint = '⚑',
   info = '»',
 })
@@ -295,11 +324,6 @@ keymap.set('n', '<C-n>', function() ui.nav_file(3) end)
 keymap.set('n', '<C-s>', function() ui.nav_file(4) end)
 
 
-
-keymap.set('n', '<leader>n', ':Neotree reveal toggle<CR>', { noremap = true, silent = true })
-
-
-
 keymap.set("n", "<leader>xx", function() require("trouble").toggle() end)
 keymap.set("n", "<leader>xw", function() require("trouble").toggle("workspace_diagnostics") end)
 keymap.set("n", "<leader>xd", function() require("trouble").toggle("document_diagnostics") end)
@@ -311,7 +335,7 @@ keymap.set("n", "gR", function() require("trouble").toggle("lsp_references") end
 -- lualine setup
 require('lualine').setup {
   options = {
-    theme = 'tokyonight',
+    theme = 'catppuccin',
     component_separators = '',
     section_separators = { left = '', right = '' },
 
@@ -332,8 +356,8 @@ require('lualine').setup {
       {
         'diagnostics',
         symbols = {
-          error = '✘ ',
-          warn = ' ',
+          error = '🚩',
+          warn = '🥶',
           hint = '⚑ ',
           info = '» ',
         },
