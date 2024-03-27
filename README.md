@@ -37,6 +37,10 @@ Contributions are welcome! If you'd like to improve the configuration or add new
 
 ## NeoVim Shortcuts Guide
 
+### VsCode Shortcuts
+
+<C-s> : Save
+
 ### Normal Mode Shortcuts
 
 In Normal Mode, shortcuts perform a variety of text manipulation and navigation tasks:
@@ -74,6 +78,31 @@ In Visual Mode, manipulate text selections with:
 - `>`, `<`, `>>`, `<<`: Indent or unindent text or text blocks.
 - `s`, `S`, `x`, `X`: Delete or cut text, optionally moving the cursor to the next line.
 - `y`, `Y`, `p`, `P`: Copy or paste text, adjusting cursor position as needed.
+
+### The default file explorer
+
+The neovim default file explorer is netrw. The custom shortcut to open is `<leader>e`.
+
+- `Enter`: Opens a directory or a file.
+- `-`: Go up to the parent directory.
+- `u`: Go back to the previous directory in the history.
+  `gb`: Jump to the most recent directory saved on the "Bookmarks". To create a bookmark we use mb.
+- `p`: Opens a preview window.
+- `<C-w>z`: Ctrl + w and then z. Closes the preview window.
+- `gh`: Toggles the hidden files.
+- `%`: Creates a file.
+- `R`: Renames a file
+- `mt`: Assign the "target directory" used by the move and copy commands.
+- `mf`: Marks a file or directory. Any action that can be performed on multiple files depend on these marks. So if you want to copy, move or delete files, you need to mark them.
+- `mc`: Copy the marked files in the target directory.
+- `mm`: Move the marked files to the target directory.
+- `mx`: Runs an external command on the marked files.
+- `D`: Deletes a file or an empty directory. vim will not let us delete a non-empty directory. I'll show how to bypass this later on.
+- `d`: Creates a directory.
+
+### Custom Shortcuts
+
+`shift + h`: in the nvim-neo-tree shows the hidden items.
 
 ### Tips and Tricks
 

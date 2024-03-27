@@ -29,7 +29,6 @@ vim.api.nvim_set_keymap('n', '<C-s>', ':w<CR>', { noremap = true, silent = true 
 vim.api.nvim_set_keymap('i', '<C-s>', '<Esc>:w<CR>a', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<C-z>', ':redo<CR>', { noremap = true, silent = true })
 
-
 -- Navegação entre buffers
 keymap.set('n', 'g<Right>', ':bnext<CR>', opts)
 keymap.set('n', 'g<Left>', ':bprevious<CR>', opts)
@@ -52,6 +51,12 @@ keymap.set("n", "<leader>k", ":resize -4<CR>", opts)
 
 -- Personalização do highlight para busca
 vim.cmd [[highlight Search ctermfg=black ctermbg=yellow]]
+
+-- File Explorer and Neotree
+keymap.set('n', '<leader>e', ':Explore<CR>', opts)
+keymap.set('n', '<C-b>', ':Neotree toggle<CR>', opts)
+keymap.set('i', '<C-b>', '<Esc>:Neotree toggle<CR>', opts)
+
 
 
 local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
@@ -79,7 +84,7 @@ require('lazy').setup({
       'williamboman/mason-lspconfig.nvim', -- Optional
       -- Autocompletion
       'hrsh7th/nvim-cmp',                  -- Required
-      'hrsh7th/cmp-nvim-lsp',              -- Required
+      ' rsh7th/cmp-nvim-lsp',              -- Required
       'L3MON4D3/LuaSnip',                  -- Required
     }
   },
@@ -124,18 +129,6 @@ require('lazy').setup({
     },
   },
   {
-    'nvimdev/indentmini.nvim',
-    event = 'BufEnter',
-    config = function()
-      require('indentmini').setup({
-        --char = '',
-        --char = '┊',
-        char = '│',
-      })
-      vim.cmd.highlight('default link IndentLine Comment')
-    end,
-  },
-  {
     'terrortylor/nvim-comment',
     init = function()
       require('nvim_comment').setup()
@@ -147,7 +140,6 @@ require('lazy').setup({
   'nvim-lualine/lualine.nvim',
   'nvim-treesitter/nvim-treesitter',
   'mbbill/undotree',
-  'theprimeagen/harpoon',
   {
     'nvim-telescope/telescope.nvim',
     tag = '0.1.2',
@@ -171,9 +163,6 @@ require('lazy').setup({
       'nvim-lua/plenary.nvim',
       'nvim-tree/nvim-web-devicons',
       'MunifTanjim/nui.nvim',
-    },
-    keys = {
-      { '<leader>n', '<cmd>Neotree toggle<cr>', desc = 'NeoTree' },
     },
     config = function()
       require('neo-tree').setup({
@@ -313,24 +302,6 @@ require('nvim-treesitter.configs').setup {
   },
 }
 
-local mark = require('harpoon.mark')
-local ui = require('harpoon.ui')
-
-keymap.set('n', '<leader>a', mark.add_file)
-keymap.set('n', '<C-e>', ui.toggle_quick_menu)
-keymap.set('n', '<C-h>', function() ui.nav_file(1) end)
-keymap.set('n', '<C-t>', function() ui.nav_file(2) end)
-keymap.set('n', '<C-n>', function() ui.nav_file(3) end)
-keymap.set('n', '<C-s>', function() ui.nav_file(4) end)
-
-
-keymap.set("n", "<leader>xx", function() require("trouble").toggle() end)
-keymap.set("n", "<leader>xw", function() require("trouble").toggle("workspace_diagnostics") end)
-keymap.set("n", "<leader>xd", function() require("trouble").toggle("document_diagnostics") end)
-keymap.set("n", "<leader>xq", function() require("trouble").toggle("quickfix") end)
-keymap.set("n", "<leader>xl", function() require("trouble").toggle("loclist") end)
-keymap.set("n", "gR", function() require("trouble").toggle("lsp_references") end)
-
 
 -- lualine setup
 require('lualine').setup {
@@ -408,6 +379,28 @@ require('gitsigns').setup {
     changedelete = { text = git_char },
     untracked = { text = git_char },
   },
+  current_line_blame = true,
+  current_line_blame_opts = {
+    virt_text = true,
+    virt_text_pos = 'eol', -- 'eol' | 'overlay' | 'right_align'
+    delay = 1000,
+    ignore_whitespace = false,
+    virt_text_priority = 100,
+  },
+  current_line_blame_formatter = '<author>, <author_time:%Y-%m-%d %H:%M> - <summary>',
   signcolumn = true,
   numhl = false,
+  on_attach = function(bufnr)
+    local gs = package.loaded.gitsigns
+    local function map(mode, l, r, opts)
+      opts = opts or {}
+      opts.buffer = bufnr
+      vim.keymap.set(mode, l, r, opts)
+    end
+    map('n', '<leader>xr', gs.reset_hunk)
+    map('n', '<leader>xp', gs.preview_hunk)
+    map('n', '<leader>xb', function() gs.blame_line { full = true } end) -- open a window with the full blame
+    map('n', '<leader>xd', gs.diffthis)
+    map('n', '<leader>xn', gs.next_hunk)
+  end
 }
