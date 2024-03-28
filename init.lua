@@ -26,7 +26,7 @@ keymap.set('n', 'K', vim.lsp.buf.hover, { buffer = 0 }) -- Mostra as informacõe
 
 -- Salvar e refazer
 vim.api.nvim_set_keymap('n', '<C-s>', ':w<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('i', '<C-s>', '<Esc>:w<CR>a', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('i', '<C-s>', '<Esc>:w<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<C-z>', ':redo<CR>', { noremap = true, silent = true })
 
 -- Navegação entre buffers
@@ -36,11 +36,6 @@ keymap.set('n', 'g<Left>', ':bprevious<CR>', opts)
 -- Split window
 keymap.set("n", "ss", ":split<Return>", opts)
 keymap.set("n", "sv", ":vsplit<Return>", opts)
--- Move window
-keymap.set("n", "sh", "<C-w>h")
-keymap.set("n", "sk", "<C-w>k")
-keymap.set("n", "sj", "<C-w>j")
-keymap.set("n", "sl", "<C-w>l")
 
 -- Resize window
 keymap.set("n", "<leader>h", ":vertical resize -4<CR>", opts)
@@ -57,7 +52,15 @@ keymap.set('n', '<leader>e', ':Explore<CR>', opts)
 keymap.set('n', '<C-b>', ':Neotree toggle<CR>', opts)
 keymap.set('i', '<C-b>', '<Esc>:Neotree toggle<CR>', opts)
 
+-- Mover linha atual para cima
+keymap.set("n", "<S-Up>", ":m .-2<CR>==", opts)
+keymap.set("i", "<S-Up>", "<Esc>:m .-2<CR>==gi", opts)
+keymap.set("v", "<S-Up>", ":m '<-2<CR>gv=gv", opts)
 
+-- Mover linha atual para baixo
+keymap.set("n", "<S-Down>", ":m .+1<CR>==", opts)
+keymap.set("i", "<S-Down>", "<Esc>:m .+1<CR>==gi", opts)
+keymap.set("v", "<S-Down>", ":m '>+1<CR>gv=gv", opts)
 
 local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
@@ -235,6 +238,9 @@ function ToggleCodeium()
     print("Codeium enabled")
   end
 end
+
+-- Mapeia o atalho F5 para alternar a ativação do Codeium
+vim.api.nvim_set_keymap('n', '<F5>', ':lua ToggleCodeium()<CR>', { noremap = true, silent = true })
 
 local lsp = require('lsp-zero').preset('recommended')
 

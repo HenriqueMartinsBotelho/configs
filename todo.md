@@ -4,3 +4,4 @@
 - Duplicar linhas, mover linhas.
 - Mostrar sugestões de import com ctrl + espaço
 - Mostrar scrollbar
+- Aprender a mover vários arquivos e pastas ao mesmo tempo

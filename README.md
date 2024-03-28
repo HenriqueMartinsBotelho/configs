@@ -37,6 +37,8 @@ Contributions are welcome! If you'd like to improve the configuration or add new
 
 ## NeoVim Shortcuts Guide
 
+The complete list of NeoVim shortcuts can be found [here](https://neovim.io/doc/user/quickref.html)
+
 ### VsCode Shortcuts
 
 <C-s> : Save
