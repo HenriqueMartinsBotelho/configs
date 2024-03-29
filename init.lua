@@ -2,6 +2,11 @@ local set = vim.opt
 local keymap = vim.keymap
 local opts = { noremap = true, silent = true }
 
+vim.o.foldcolumn = '1' -- '0' is not bad
+vim.o.foldlevel = 99   -- Using ufo provider need a large value, feel free to decrease the value
+vim.o.foldlevelstart = 99
+vim.o.foldenable = true
+
 -- Desativa a criação de arquivos de backup, arquivos de troca e writebackup
 set.backup = false      -- Não criar arquivos de backup
 set.writebackup = false -- Não criar arquivos de backup ao escreverrr
@@ -225,6 +230,21 @@ require('lazy').setup({
       end,
     },
   },
+  {
+    "kevinhwang91/nvim-ufo",
+    dependencies = "kevinhwang91/promise-async",
+    config = function()
+      keymap.set("n", "zR", require("ufo").openAllFolds)
+      keymap.set("n", "zM", require("ufo").closeAllFolds)
+      keymap.set("n", "zr", require("ufo").openFoldsExceptKinds)
+    end,
+  },
+})
+
+require('ufo').setup({
+  provider_selector = function(bufnr, filetype, buftype)
+    return { 'lsp', 'indent' }
+  end
 })
 
 function ToggleCodeium()

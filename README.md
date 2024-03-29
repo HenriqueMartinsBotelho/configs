@@ -1,4 +1,8 @@
-# Welcome to my Neovim configuration project! 👋
+# Neovim Configuration 👋
+
+Neovim configuration in a single file init.lua. 🌟
+
+## Never abandone neovim again!
 
 In this project, I'll guide you through the process of setting up Neovim, a powerful and efficient text editor, in a single file init.lua. 🌟
 
@@ -56,8 +60,6 @@ In Normal Mode, shortcuts perform a variety of text manipulation and navigation 
 - `Ctrl+d/u`: Scroll half a screen down/up.
 - `Ctrl+f/b`: Scroll a full screen forward/backward.
 - `{number}j/k`: Move down/up a specific number of lines, e.g., `10j` moves down 10 lines.
-- `G`: Jump to the last line of the file.
-- `gg`: Go to the first line.
 - `{number}G`: Jump to a specified line number, e.g., `50G` goes to line 50.
 - `dw`, `diw`: Delete a word from the cursor forward; delete the inner word without including the following space.
 - `t<character>`, `f<character>`: Jump to the character before (`t`) or exactly at (`f`) the specified character.
@@ -71,6 +73,14 @@ In Normal Mode, shortcuts perform a variety of text manipulation and navigation 
 - `gg`, `G`: Move to the start/end of the file.
 - Search navigation (`t`, `T`, `n`, `N`) jumps to the next or previous occurrence of a search pattern.
 - Visual block navigation (`v`, `V`) starts visual selection or line-wise visual selection.
+- `gd`: Go to definition.
+- `gD`: Go to global definition.
+- `gf`: Open a file in the same directory as the current file.
+- `gF`: Same to `gf`, but try to open the file in the line
+- `gt` and `gT`: Go to next/previous tab.
+- `#` search backward for the identifier under the cursor
+- `g*` like "\*", but also find partial matches
+- `g#` like "#", but also find partial matches
 
 ### Visual Mode Shortcuts
 
