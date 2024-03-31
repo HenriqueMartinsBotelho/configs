@@ -1,5 +1,4 @@
-- Integração com o Git (ver vídeo que assisti no meu histório do celular).
-- folder com o neo-ufo
+- vim-visual-multi plogin
 - mover pastas, renomear arquivos, deletar arquivos, etc.
 - Duplicar linhas, mover linhas.
 - Mostrar sugestões de import com ctrl + espaço

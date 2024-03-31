@@ -81,6 +81,10 @@ In Normal Mode, shortcuts perform a variety of text manipulation and navigation 
 - `#` search backward for the identifier under the cursor
 - `g*` like "\*", but also find partial matches
 - `g#` like "#", but also find partial matches
+- `ya{` and `yi{`: Select text between `{` and `}` or `(` and `)`
+- `yiw` and `yiW`: Copy the current word
+- `da{` and `di{`: Delete text between `{` and `}`
+- `ca{` and `ci{`: Change text between `{` and `}` and go to insert mode.
 
 ### Visual Mode Shortcuts
 
@@ -90,6 +94,9 @@ In Visual Mode, manipulate text selections with:
 - `>`, `<`, `>>`, `<<`: Indent or unindent text or text blocks.
 - `s`, `S`, `x`, `X`: Delete or cut text, optionally moving the cursor to the next line.
 - `y`, `Y`, `p`, `P`: Copy or paste text, adjusting cursor position as needed.
+- `va{`, `vi{`, `va(`, `vi(`: Select text between `{` and `}` or `(` and `)`.
+- `viw`: Select the current word.
+- `v%`: Select the current block.
 
 ### The default file explorer
 
@@ -114,6 +121,7 @@ The neovim default file explorer is netrw. The custom shortcut to open is `<lead
 
 ### Custom Shortcuts
 
+`<C-space>`: the plugin tree-sister select the block of code in the cursor.
 `shift + h`: in the nvim-neo-tree shows the hidden items.
 
 ### Tips and Tricks

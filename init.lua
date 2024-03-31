@@ -2,17 +2,36 @@ local set = vim.opt
 local keymap = vim.keymap
 local opts = { noremap = true, silent = true }
 
+--
+
+-- Remap Esc
+keymap.set("i", "<C-c>", "<Esc>")
+
+-- Do things without affecting the registers
+keymap.set("n", "x", '"_x')
+keymap.set("n", "<Leader>p", '"0p')
+keymap.set("n", "<Leader>P", '"0P')
+keymap.set("v", "<Leader>p", '"0p')
+keymap.set("n", "<Leader>c", '"_c')
+keymap.set("n", "<Leader>C", '"_C')
+keymap.set("v", "<Leader>c", '"_c')
+keymap.set("v", "<Leader>C", '"_C')
+keymap.set("n", "<Leader>d", '"_d')
+keymap.set("n", "<Leader>D", '"_D')
+keymap.set("v", "<Leader>d", '"_d')
+keymap.set("v", "<Leader>D", '"_D')
+
 vim.o.foldcolumn = '1' -- '0' is not bad
 vim.o.foldlevel = 99   -- Using ufo provider need a large value, feel free to decrease the value
 vim.o.foldlevelstart = 99
 vim.o.foldenable = true
 
 -- Desativa a criação de arquivos de backup, arquivos de troca e writebackup
-set.backup = false      -- Não criar arquivos de backup
-set.writebackup = false -- Não criar arquivos de backup ao escreverrr
-set.swapfile = false    -- Não criar arquivos de troca
+set.backup = false            -- Não criar arquivos de backup
+set.writebackup = false       -- Não criar arquivos de backup ao escreverrr
+set.swapfile = false          -- Não criar arquivos de troca
 
-
+set.relativenumber = true     -- Exibe números relativos
 set.autoindent = true         -- Habilita indentação automática baseada na linha anterior
 set.clipboard = "unnamedplus" -- Permite acesso ao clipboard do sistema
 set.expandtab = true          -- Converte tabs em espaços
@@ -28,6 +47,14 @@ vim.g.mapleader = " "                                   -- Define a tecla líder
 vim.g.maplocalleader = " "                              -- Define a tecla líder local para espaço
 
 keymap.set('n', 'K', vim.lsp.buf.hover, { buffer = 0 }) -- Mostra as informacões (tooltip) da variável ao apertar shift + k
+
+-- Remapping Ctrl + d and Ctrl + u
+vim.api.nvim_set_keymap('n', '<C-d>', '<C-d>zz', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<C-u>', '<C-u>zz', { noremap = true, silent = true })
+
+-- Remappin n and N
+vim.api.nvim_set_keymap('n', 'n', 'nzzzv', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', 'N', 'Nzzzv', { noremap = true, silent = true })
 
 -- Salvar e refazer
 vim.api.nvim_set_keymap('n', '<C-s>', ':w<CR>', { noremap = true, silent = true })
@@ -305,12 +332,7 @@ cmp.setup({
   }
 })
 
-keymap.set('n', '<leader>gs', vim.cmd.Git)
-
-
-
-keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle)
-
+-- nvim-treesitter setup
 require('nvim-treesitter.configs').setup {
   ensure_installed = {
     'javascript', 'typescript', 'tsx', 'css', 'html',
@@ -320,11 +342,7 @@ require('nvim-treesitter.configs').setup {
   auto_update = true,
   incremental_selection = {
     enable = true,
-    keymaps = {
-      init_selection = '<C-space>',
-      node_incremental = '<C-space>',
-      node_decremental = '<C-backspace>',
-    },
+
   },
 }
 
@@ -361,7 +379,7 @@ require('lualine').setup {
       },
       {
         function()
-          local msg = ''
+          local msg = 'No Active LSP'
           local buf_ft = vim.api.nvim_buf_get_option(0, 'filetype')
           local clients = vim.lsp.get_active_clients()
           if next(clients) == nil then
@@ -380,7 +398,7 @@ require('lualine').setup {
     },
     lualine_y = { 'filetype' },
     lualine_z = {
-      { 'location', separator = { right = '' }, left_padding = 2 },
+      { 'progress', separator = { right = '' }, left_padding = 2 },
     },
   },
   inactive_sections = {
@@ -395,6 +413,7 @@ require('lualine').setup {
   extensions = {},
 }
 
+-- gitsigns setup
 local git_char = '┃' --'│'
 require('gitsigns').setup {
   signs = {
@@ -430,3 +449,6 @@ require('gitsigns').setup {
     map('n', '<leader>xn', gs.next_hunk)
   end
 }
+
+-- UndoTree configuration
+keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle)
