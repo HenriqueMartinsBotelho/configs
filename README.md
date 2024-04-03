@@ -123,7 +123,6 @@ The neovim default file explorer is netrw. The custom shortcut to open is `<lead
 
 `<C-space>`: the plugin tree-sister select the block of code in the cursor.
 `shift + h`: in the nvim-neo-tree shows the hidden items.
-`shift + Down/Up`: move the lines of a file.
 
 ### Plugin Vim Visual Multi
 
@@ -139,9 +138,9 @@ start insert mode with `i,a,I,A`
 ### Tips and Tricks
 
 - **Indentation**: Use `>` and `<` in Visual Mode for adjusting indentation levels.
- 
+
 - **Word Replacement**: Utilize `:%s/old/new/g` for global search and replace. Use `:%s/old/new/gc` for confirm before replacing.
- 
+
 - **File Searching**: Use `:/pattern` to search within a file, navigating results with `n` (next) and `N` (previous). To clear search highlights, use `:noh`.
 
 - **Case Sensitivity**: Use `:set case sensitive` for case-sensitive searches. Alternatively, `\c` in your search pattern (`:/\cpattern`) makes the search case insensitive.
@@ -177,6 +176,8 @@ The Trouble plugin facilitates navigating through code errors and diagnostics. C
 
 ## Plugins
 
+`j-hui/fidget.nvim`: Extensible UI for Neovim notifications and LSP progress messages.
+`folke/trouble.nvim`: Shows diagnostics in the quickfix and location lists.
 **LSP and Autocompletion**: `lsp-zero.nvim` and its dependencies provide rich language features and intelligent code completion.
 
 - **UI Enhancements**: Themes like `tokyonight.nvim` and utility plugins like `fidget.nvim` improve visual feedback and aesthetics.
