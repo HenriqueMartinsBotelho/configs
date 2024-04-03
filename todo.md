@@ -1,6 +1,3 @@
-- vim-visual-multi plogin
 - mover pastas, renomear arquivos, deletar arquivos, etc.
-- Duplicar linhas, mover linhas.
 - Mostrar sugestões de import com ctrl + espaço
-- Mostrar scrollbar
 - Aprender a mover vários arquivos e pastas ao mesmo tempo

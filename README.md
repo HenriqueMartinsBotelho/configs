@@ -123,13 +123,25 @@ The neovim default file explorer is netrw. The custom shortcut to open is `<lead
 
 `<C-space>`: the plugin tree-sister select the block of code in the cursor.
 `shift + h`: in the nvim-neo-tree shows the hidden items.
+`shift + Down/Up`: move the lines of a file.
+
+### Plugin Vim Visual Multi
+
+select words with `Ctrl-N` (like Ctrl-d in Sublime Text/VS Code)
+create cursors vertically with `Ctrl-Down/Ctrl-Up`
+select one character at a time with Shift-Arrows
+press `n/N` to get next/previous occurrence
+press `[/]` to select next/previous cursor
+press `q` to skip current and get next occurrence
+press `Q` to remove current cursor/selection
+start insert mode with `i,a,I,A`
 
 ### Tips and Tricks
 
 - **Indentation**: Use `>` and `<` in Visual Mode for adjusting indentation levels.
-
+ 
 - **Word Replacement**: Utilize `:%s/old/new/g` for global search and replace. Use `:%s/old/new/gc` for confirm before replacing.
-
+ 
 - **File Searching**: Use `:/pattern` to search within a file, navigating results with `n` (next) and `N` (previous). To clear search highlights, use `:noh`.
 
 - **Case Sensitivity**: Use `:set case sensitive` for case-sensitive searches. Alternatively, `\c` in your search pattern (`:/\cpattern`) makes the search case insensitive.
