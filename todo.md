@@ -1,3 +1,4 @@
 - mover pastas, renomear arquivos, deletar arquivos, etc.
 - Mostrar sugestões de import com ctrl + espaço
 - Aprender a mover vários arquivos e pastas ao mesmo tempo
+- Congirar neovim para go pois as cores então zoadas

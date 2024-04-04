@@ -134,6 +134,7 @@ require('lazy').setup({
       }
     },
   },
+  -- { "EdenEast/nightfox.nvim" },
   {
     "catppuccin/nvim",
     name = "catppuccin",
@@ -141,8 +142,51 @@ require('lazy').setup({
     config = function()
       require("catppuccin").setup({
         flavour = "mocha", -- latte, frappe, macchiato, mocha
-        transparent_background = true,
-        show_end_of_buffer = false,
+        -- flavour = "auto" -- will respect terminal's background
+        background = {     -- :h background
+          light = "latte",
+          dark = "mocha",
+        },
+        transparent_background = true, -- disables setting the background color.
+        show_end_of_buffer = false,    -- shows the '~' characters after the end of buffers
+        term_colors = false,           -- sets terminal colors (e.g. `g:terminal_color_0`)
+        dim_inactive = {
+          enabled = false,             -- dims the background color of inactive window
+          shade = "dark",
+          percentage = 0.15,           -- percentage of the shade to apply to the inactive window
+        },
+        no_italic = false,             -- Force no italic
+        no_bold = false,               -- Force no bold
+        no_underline = false,          -- Force no underline
+        styles = {                     -- Handles the styles of general hi groups (see `:h highlight-args`):
+          comments = { "italic" },     -- Change the style of comments
+          conditionals = { "italic" },
+          loops = {},
+          functions = {},
+          keywords = {},
+          strings = {},
+          variables = {},
+          numbers = {},
+          booleans = {},
+          properties = {},
+          types = {},
+          operators = {},
+          -- miscs = {}, -- Uncomment to turn off hard-coded styles
+        },
+        color_overrides = {},
+        custom_highlights = {},
+        default_integrations = true,
+        integrations = {
+          cmp = true,
+          gitsigns = true,
+          nvimtree = true,
+          treesitter = true,
+          notify = false,
+          mini = {
+            enabled = true,
+            indentscope_color = "",
+          },
+        },
       })
       vim.cmd.colorscheme "catppuccin"
     end
@@ -322,6 +366,59 @@ require('lspconfig').lua_ls.setup({})
 
 require('lspconfig').tsserver.setup({ capabilities = lsp_capabilities })
 
+-- lsp setup for go
+
+require('lspconfig').gopls.setup({
+  capabilities = capabilities,
+  on_attach = on_attach,
+  settings = {
+    gopls = {
+      analyses = {
+        assign = true,
+        atomic = true,
+        bools = true,
+        composites = true,
+        copylocks = true,
+        deepequalerrors = true,
+        embed = true,
+        errorsas = true,
+        fieldalignment = true,
+        httpresponse = true,
+        ifaceassert = true,
+        loopclosure = true,
+        lostcancel = true,
+        nilfunc = true,
+        nilness = true,
+        nonewvars = true,
+        printf = true,
+        shadow = true,
+        shift = true,
+        simplifycompositelit = true,
+        simplifyrange = true,
+        simplifyslice = true,
+        sortslice = true,
+        stdmethods = true,
+        stringintconv = true,
+        structtag = true,
+        testinggoroutine = true,
+        tests = true,
+        timeformat = true,
+        unmarshal = true,
+        unreachable = true,
+        unsafeptr = true,
+        unusedparams = true,
+        unusedresult = true,
+        unusedvariable = true,
+        unusedwrite = true,
+        useany = true,
+      },
+      hoverKind = "FullDocumentation",
+      linkTarget = "pkg.go.dev",
+      usePlaceholders = true,
+      vulncheck = "Imports",
+    },
+  },
+})
 
 lsp.setup()
 
@@ -343,7 +440,16 @@ require('nvim-treesitter.configs').setup {
   auto_update = true,
   incremental_selection = {
     enable = true,
-
+  },
+  highlight = {
+    enable = true,
+    disable = { "markdown" },
+    -- When I add this enable = true the colors for GO works!
+    --   -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
+    --   -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
+    --   -- Using this option may slow down your editor, and you may see some duplicate highlights.
+    --   -- Instead of true it can also be a list of languages
+    --   additional_vim_regex_highlighting = false,
   },
 }
 -- Trouble setup

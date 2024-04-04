@@ -90,6 +90,7 @@ In Normal Mode, shortcuts perform a variety of text manipulation and navigation 
 
 In Visual Mode, manipulate text selections with:
 
+- `gc`: Comment/uncomment the selection.
 - `v`, `V`: Start visual mode with or without cursor movement.
 - `>`, `<`, `>>`, `<<`: Indent or unindent text or text blocks.
 - `s`, `S`, `x`, `X`: Delete or cut text, optionally moving the cursor to the next line.
@@ -136,6 +137,8 @@ press `Q` to remove current cursor/selection
 start insert mode with `i,a,I,A`
 
 ### Tips and Tricks
+
+- **Increase/Decrease window**: Use `<leader> + h/j/k/l` to resize the current window.
 
 - **Indentation**: Use `>` and `<` in Visual Mode for adjusting indentation levels.
 
