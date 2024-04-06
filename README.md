@@ -162,6 +162,8 @@ start insert mode with `i,a,I,A`
 
 - **Codeium Auto-Completion**: `C-j`.
 
+- :LspRestart: Este comando, disponível em algumas configurações do NeoVim, reinicia os servidores LSP ativos. Isso pode ajudar a reconhecer novas bibliotecas ou mudanças no ambiente sem precisar reiniciar o NeoVim.
+
 ## Plugins
 
 ### Error Navigation with Trouble Plugin

@@ -3,6 +3,11 @@ local keymap = vim.keymap
 local opts = { noremap = true, silent = true }
 
 --
+-- disable netrw at the very start of your init.lua
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
+set.smartcase = true -- A busca se torna sensível a maiúsculas se a busca contém letras maiúsculas
 
 -- Remap Esc
 keymap.set("i", "<C-c>", "<Esc>")
@@ -79,10 +84,10 @@ keymap.set("n", "<leader>k", ":resize -4<CR>", opts)
 -- Personalização do highlight para busca
 vim.cmd [[highlight Search ctermfg=black ctermbg=yellow]]
 
--- File Explorer and Neotree
+-- File Explorer and nvimtree
 keymap.set('n', '<leader>e', ':Explore<CR>', opts)
-keymap.set('n', '<C-b>', ':Neotree toggle<CR>', opts)
-keymap.set('i', '<C-b>', '<Esc>:Neotree toggle<CR>', opts)
+keymap.set('n', '<C-b>', ':NvimTreeToggle<CR>', opts)
+keymap.set('i', '<C-b>', '<Esc>:NvimTreeToggle<CR>', opts)
 
 -- Mover linha atual para cima
 keymap.set("n", "<S-Up>", ":m .-2<CR>==", opts)
@@ -236,32 +241,7 @@ require('lazy').setup({
     end,
   },
   {
-    'nvim-neo-tree/neo-tree.nvim',
-    branch = 'v3.x',
-    dependencies = {
-      'nvim-lua/plenary.nvim',
-      'nvim-tree/nvim-web-devicons',
-      'MunifTanjim/nui.nvim',
-    },
-    config = function()
-      require('neo-tree').setup({
-        default_component_configs = {
-          git_status = {
-            symbols = {
-              added     = "✅",
-              modified  = "🔥",
-              deleted   = "D",
-              renamed   = "R",
-              untracked = "UN",
-              ignored   = "I",
-              unstaged  = "US",
-              staged    = "S",
-              conflict  = "C",
-            },
-          },
-        }
-      })
-    end,
+    "nvim-tree/nvim-tree.lua",
   },
   {
     'Exafunction/codeium.vim',
@@ -429,6 +409,24 @@ cmp.setup({
     ['<CR>'] = cmp.mapping.confirm({ select = false }),
   }
 })
+
+---
+-- nvim-tree setup
+require("nvim-tree").setup({
+  sort = {
+    sorter = "case_sensitive",
+  },
+  view = {
+    width = 30,
+  },
+  renderer = {
+    group_empty = true,
+  },
+  filters = {
+    dotfiles = true,
+  },
+})
+
 
 -- nvim-treesitter setup
 require('nvim-treesitter.configs').setup {
