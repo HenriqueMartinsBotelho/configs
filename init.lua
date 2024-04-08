@@ -7,8 +7,9 @@ local opts = { noremap = true, silent = true }
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
-set.smartcase = true -- A busca se torna sensível a maiúsculas se a busca contém letras maiúsculas
-
+set.ignorecase = true -- A busca se torna sensível a maiúsculas se a busca contém letras maiúsculas (o smartcase só vai funcioar se ignorecase = true)
+set.smartcase = true  -- A busca se torna sensível a maiúsculas se a busca contém letras maiúsculas
+set.scrolloff = 18    -- Keeps 18 lines above/below the cursor when you scroll.
 -- Remap Esc
 keymap.set("i", "<C-c>", "<Esc>")
 
@@ -98,6 +99,12 @@ keymap.set("v", "<S-Up>", ":m '<-2<CR>gv=gv", opts)
 keymap.set("n", "<S-Down>", ":m .+1<CR>==", opts)
 keymap.set("i", "<S-Down>", "<Esc>:m .+1<CR>==gi", opts)
 keymap.set("v", "<S-Down>", ":m '>+1<CR>gv=gv", opts)
+
+-- Tabs
+keymap.set("n", "te", ":tabedit")
+keymap.set("n", "<tab>", ":tabnext<Return>", opts)
+keymap.set("n", "<s-tab>", ":tabprev<Return>", opts)
+
 
 local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then

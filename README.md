@@ -125,6 +125,11 @@ The neovim default file explorer is netrw. The custom shortcut to open is `<lead
 `<C-space>`: the plugin tree-sister select the block of code in the cursor.
 `shift + h`: in the nvim-neo-tree shows the hidden items.
 
+### Plugin Nvim Tree
+
+`H` - Show hidden files
+`I` - Show .gitignore files
+
 ### Plugin Vim Visual Multi
 
 select words with `Ctrl-N` (like Ctrl-d in Sublime Text/VS Code)

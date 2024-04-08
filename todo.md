@@ -1,4 +1,8 @@
-- mover pastas, renomear arquivos, deletar arquivos, etc.
+- mover pastas.
 - Mostrar sugestões de import com ctrl + espaço
 - Aprender a mover vários arquivos e pastas ao mesmo tempo
-- Congirar neovim para go pois as cores então zoadas
+- renomear variáveis de maneira inteligente (como o f2 do vscode) e não apenas com o ctrl + n do vim-visual-multi
+- mostrar a branch na statusbar
+- adicionar o plugin: https://github.com/hedyhli/outline.nvim
+- mapear o ctrl + v para colar
+- usar ctrl + j para abrir terminal do zellij que abro com ctrl + p + w.
