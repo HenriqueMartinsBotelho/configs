@@ -36,7 +36,7 @@ set.backup = false
 set.writebackup = false
 set.swapfile = false
 
-set.relativenumber = true
+-- set.relativenumber = true
 set.autoindent = true
 set.clipboard = "unnamedplus"
 set.expandtab = true

@@ -25,75 +25,6 @@ require('lazy').setup({
     },
   },
   {
-
-    "slugbyte/lackluster.nvim",
-    lazy = false,
-    priority = 1000,
-    config = function()
-      -- require("onenord").setup({
-      -- 	theme = "dark", -- "dark" or "light". Alternatively, remove the option and set vim.o.background instead
-      -- 	borders = true, -- Split window borders
-      -- 	fade_nc = false, -- Fade non-current windows, making them more distinguishable
-      -- 	-- Style that is applied to various groups: see `highlight-args` for options
-      -- 	styles = {
-      -- 		comments = "italic",
-      -- 		strings = "italic",
-      -- 		keywords = "italic",
-      -- 		functions = "NONE",
-      -- 		variables = "NONE",
-      -- 		diagnostics = "underline",
-      -- 	},
-      -- 	disable = {
-      -- 		background = false, -- Disable setting the background color
-      -- 		float_background = true, -- Disable setting the background color for floating windows
-      -- 		cursorline = false, -- Disable the cursorline
-      -- 		eob_lines = true, -- Hide the end-of-buffer lines
-      -- 	},
-      -- 	-- Inverse highlight for different groups
-      -- 	inverse = {
-      -- 		match_paren = false,
-      -- 	},
-      -- 	custom_highlights = {}, -- Overwrite default highlight groups
-      -- 	custom_colors = {}, -- Overwrite default colors
-      -- })
-      -- vim.cmd("colorscheme onenord")
-      local lackluster = require("lackluster")
-      local color = lackluster.color -- blue, green, red, orange, black, lack, luster, gray1-9
-      -- setup before set colorscheme
-      lackluster.setup({
-        -- You can overwrite the following syntax colors by setting them to one of...
-        --   1) a hexcode like "#a1b2c3" for a custom color
-        --   2) "default" or nil will just use whatever lackluster's default is.
-        tweak_syntax = {
-          string = "default",
-          -- string = "#a1b2c3", -- custom hexcode
-          -- string = color.green, -- lackluster color
-          string_escape = "default",
-          comment = "default",
-          builtin = "default", -- builtin modules and functions
-          type = "default",
-          keyword = "default",
-          keyword_return = "default",
-          keyword_exception = "default",
-        },
-        -- You can overwrite the following background colors by setting them to one of...
-        --   1) a hexcode like "#a1b2c3" for a custom color
-        --   2) "none" for transparency
-        --   3) "default" or nil will just use whatever lackluster's default is.
-        tweak_background = {
-          -- normal = "default", -- main background
-          normal = "none", -- transparent
-          -- normal = '#a1b2c3',    -- hexcode
-          -- normal = color.green,    -- lackluster color
-          telescope = "none", -- telescope
-          menu = "default", -- nvim_cmp, wildmenu ... (bad idea to transparent)
-          popup = "default", -- lazy, mason, whichkey ... (bad idea to transparent)
-        },
-      })
-      vim.cmd.colorscheme("lackluster-mint")
-    end,
-  },
-  {
     'folke/trouble.nvim',
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     opts = {}
@@ -107,6 +38,29 @@ require('lazy').setup({
       },
     },
   },
+{
+    "ThePrimeagen/harpoon",
+    branch = "harpoon2",
+    dependencies = { "nvim-lua/plenary.nvim" },
+   keys = {
+    {
+        "<leader>çç",
+        function()
+          local harpoon = require("harpoon")
+          harpoon.ui:toggle_quick_menu(harpoon:list())
+        end,
+        desc = "Harpoon toggle menu",
+      },
+      {
+        "<leader>ça",
+        function()
+          local harpoon = require("harpoon")
+          harpoon:list():add()
+        end,
+        desc = "Harpoon Add File",
+      },
+   } 
+},
   {
     'terrortylor/nvim-comment',
     init = function()
@@ -117,15 +71,15 @@ require('lazy').setup({
   'tpope/vim-rhubarb',
   'lewis6991/gitsigns.nvim',
   {
-    'nvim-lualine/lualine.nvim',
-    config = function()
-      require('lualine').setup {
-        options = {
-          theme = 'lackluster'
-        }
-      }
-    end,
-  },
+		"craftzdog/solarized-osaka.nvim",
+		lazy = true,
+		priority = 1000,
+		opts = function()
+			return {
+				transparent = true,
+			}
+		end,
+	},
   'nvim-treesitter/nvim-treesitter',
   'mbbill/undotree',
   {
@@ -158,7 +112,18 @@ require('lazy').setup({
           group_empty = true,
         },
         filters = {
-          dotfiles = true,
+          dotfiles = false,
+          custom = {},
+          exclude = {},
+        },
+        git = {
+          enable = true,
+          ignore = true,
+          timeout = 400,
+        },
+        update_focused_file = {
+          enable = true,
+          update_cwd = true,
         },
       })
     end
@@ -196,8 +161,26 @@ require('lazy').setup({
       vim.keymap.set("n", "zr", require("ufo").openFoldsExceptKinds)
     end,
   },
-  { 'mg979/vim-visual-multi' },
-  {
+
+{
+    "smoka7/multicursors.nvim",
+    event = "VeryLazy",
+    dependencies = {
+        'nvimtools/hydra.nvim',
+    },
+    opts = {},
+    cmd = { 'MCstart', 'MCvisual', 'MCclear', 'MCpattern', 'MCvisualPattern', 'MCunderCursor' },
+    keys = {
+            {
+                mode = { 'v', 'n' },
+                '<Leader>m',
+                '<cmd>MCstart<cr>',
+                desc = 'Create a selection for selected text or word under the cursor',
+            },
+        },
+},
+
+     {
     "zbirenbaum/copilot.lua",
     cmd = "Copilot",
     build = ":Copilot auth",
@@ -238,6 +221,39 @@ require('lazy').setup({
       table.insert(opts.sources, { name = 'buffer' })
       table.insert(opts.sources, { name = 'path' })
     end,
+  },
+{
+    'nvim-lualine/lualine.nvim',
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
+    config = function()
+      require('lualine').setup {
+        options = {
+          theme = 'auto',
+        },
+        sections = {
+          lualine_c = {
+            {
+              'filename',
+              path = 1, -- 0: Just the filename, 1: Relative path, 2: Absolute path
+              shorting_target = 40, -- Shortens path to leave 40 space in the window
+              symbols = {
+                modified = '[+]',      -- Text to show when the file is modified.
+                readonly = '[-]',      -- Text to show when the file is non-modifiable or readonly.
+                unnamed = '[No Name]', -- Text to show for unnamed buffers.
+              }
+            }
+          }
+        },
+        tabline = {
+          lualine_a = {'buffers'},
+          lualine_b = {'branch'},
+          lualine_c = {'filename'},
+          lualine_x = {},
+          lualine_y = {},
+          lualine_z = {}
+        }
+      }
+    end
   },
   {
     'neovim/nvim-lspconfig',
@@ -385,3 +401,6 @@ cmp.setup({
     { name = 'path' },
   }),
 })
+
+
+vim.cmd.colorscheme('solarized-osaka')

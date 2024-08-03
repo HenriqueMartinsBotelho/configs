@@ -112,36 +112,13 @@ start insert mode with `i,a,I,A`
 
 - **Case Sensitivity**: Use `:set case sensitive` for case-sensitive searches. Alternatively, `\c` in your search pattern (`:/\cpattern`) makes the search case insensitive.
 
-- **Custom Key Bindings**: Customize key mappings in your `init.vim` to streamline actions such as navigation, editing, and accessing frequently used features.
-
-- **Plugin Management**: Utilize plugin managers like `vim-plug` or `packer.nvim` to easily install, update, and manage your NeoVim plugins.
-
-- **Theme and Aesthetics**: Choose a theme that suits your visual preference and enhances readability. Many themes also offer support for `nvim-treesitter`, improving syntax highlighting.
-
 - **Single Line Duplication**: The `yyp` or `Yp` command duplicates the current line by yanking and pasting it.
 
 - **Multiple Lines**: In Visual Mode, select multiple lines with `v` or `V`, then `y` to yank and `p` to paste.
 
 - **Using Command Line**: `:t.` duplicates the current line below itself. For duplicating multiple times, use `:.t.+1N`, replacing N with the desired number of duplicates.
 
-- **Codeium Auto-Completion**: `C-j`.
-
 - :LspRestart: Este comando, disponível em algumas configurações do NeoVim, reinicia os servidores LSP ativos. Isso pode ajudar a reconhecer novas bibliotecas ou mudanças no ambiente sem precisar reiniciar o NeoVim.
-
-## Plugins
-
-### Error Navigation with Trouble Plugin
-
-The Trouble plugin facilitates navigating through code errors and diagnostics. Configure key mappings for efficient use:
-
-- `<leader>xx`: Toggle the Trouble window.
-- `<leader>xw`: Display workspace diagnostics.
-- `<leader>xd`: Show document diagnostics.
-- `<leader>xq`: Toggle the quickfix list.
-- `<leader>xl`: Toggle the location list.
-- `gR`: Show references of the symbol under the cursor in Trouble.
-
----
 
 ## Plugins
 
@@ -156,21 +133,6 @@ The Trouble plugin facilitates navigating through code errors and diagnostics. C
 - **Status Line and Tab Line**: `lualine.nvim` is configured for a customizable status line, showcasing essential information.
 - **Syntax Highlighting**: `nvim-treesitter` provides advanced syntax highlighting for a wide range of programming languages.
 - **Productivity Tools**: `undotree`, `harpoon`, and `todo-comments.nvim` are among the plugins that enhance productivity by offering project navigation, undo history, and todo management.
-
-### Plugin neo-tree
-
-- `space + n` Open and close the tree
-
-## Configurações do plugin trouble
-
-Esse plugin serve para navegar pelos erros
-
-vim.keymap.set("n", "<leader>xx", function() require("trouble").toggle() end)
-vim.keymap.set("n", "<leader>xw", function() require("trouble").toggle("workspace_diagnostics") end)
-vim.keymap.set("n", "<leader>xd", function() require("trouble").toggle("document_diagnostics") end)
-vim.keymap.set("n", "<leader>xq", function() require("trouble").toggle("quickfix") end)
-vim.keymap.set("n", "<leader>xl", function() require("trouble").toggle("loclist") end)
-vim.keymap.set("n", "gR", function() require("trouble").toggle("lsp_references") end)
 
 # Some theory behind NeoVim
 
