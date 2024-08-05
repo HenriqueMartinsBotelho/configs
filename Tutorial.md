@@ -89,17 +89,6 @@ The neovim default file explorer is netrw. The custom shortcut to open is `<lead
 `H` - Show hidden files
 `I` - Show .gitignore files
 
-### Plugin Vim Visual Multi
-
-select words with `Ctrl-N` (like Ctrl-d in Sublime Text/VS Code)
-create cursors vertically with `Ctrl-Down/Ctrl-Up`
-select one character at a time with Shift-Arrows
-press `n/N` to get next/previous occurrence
-press `[/]` to select next/previous cursor
-press `q` to skip current and get next occurrence
-press `Q` to remove current cursor/selection
-start insert mode with `i,a,I,A`
-
 ### Tips and Tricks
 
 - **Increase/Decrease window**: Use `<leader> + h/j/k/l` to resize the current window.
