@@ -227,7 +227,7 @@ require("lazy").setup({
 					javascript = { "prettierd" },
 					typescript = { "prettierd" },
 					javascriptreact = { "prettierd" },
-					typescriptreact = { "prettierd" },
+					typescriptreact = { "prettierd", "prettier" },
 					css = { "prettierd" },
 					html = { "prettierd" },
 					json = { "prettierd" },
